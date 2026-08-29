@@ -32,7 +32,7 @@ export const QuotesTab: React.FC = () => {
     { value: 'new', label: 'جدید و بررسی نشده', badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
     { value: 'in_review', label: 'در حال بررسی مهندسی', badgeClass: 'bg-blue-500/20 text-blue-300 border-blue-500/30' },
     { value: 'contacted', label: 'تماس اولیه گرفته شد', badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/30' },
-    { value: 'completed', label: 'پیش‌فاکتور ارسال شد', badgeClass: 'bg-violet-500/20 text-violet-300 border-violet-500/30' },
+    { value: 'completed', label: 'استعلام قیمت ارسال شد', badgeClass: 'bg-violet-500/20 text-violet-300 border-violet-500/30' },
     { value: 'archived', label: 'بایگانی شده', badgeClass: 'bg-slate-800 text-slate-400 border-slate-700' },
   ];
 
@@ -74,7 +74,7 @@ export const QuotesTab: React.FC = () => {
         <div>
           <h2 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
             <FileText className="w-5 h-5 text-amber-400" />
-            <span>صندوق درخواست‌های استعلام پیش‌فاکتور ({quoteRequests.length})</span>
+            <span>صندوق درخواست‌های استعلام استعلام قیمت ({quoteRequests.length})</span>
           </h2>
           <p className="text-xs text-slate-400 mt-1">
             مدیریت سرنخ‌های فروش، بررسی متراژ سالن و تجهیزات انتخابی متقاضیان
@@ -190,7 +190,7 @@ export const QuotesTab: React.FC = () => {
           <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-sm w-full space-y-4 shadow-2xl">
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
               <AlertCircle className="w-5 h-5 text-rose-400" />
-              <span>تایید حذف پیش‌فاکتور</span>
+              <span>تایید حذف استعلام قیمت</span>
             </h3>
             <p className="text-xs text-slate-300">آیا از حذف این رکورد استعلام قیمت اطمینان دارید؟</p>
             <div className="flex items-center justify-end gap-2 pt-2">
@@ -223,7 +223,7 @@ export const QuotesTab: React.FC = () => {
               <div className="flex items-center gap-2">
                 <FileText className="w-5 h-5 text-amber-400" />
                 <div>
-                  <h3 className="text-base font-black text-white">جزئیات درخواست پیش‌فاکتور</h3>
+                  <h3 className="text-base font-black text-white">جزئیات درخواست استعلام قیمت</h3>
                   <span className="text-[11px] text-slate-400 font-mono">شناسه: {viewingQuote.id} • {viewingQuote.createdAt}</span>
                 </div>
               </div>
@@ -317,7 +317,7 @@ export const QuotesTab: React.FC = () => {
               <textarea
                 value={adminNote}
                 onChange={(e) => setAdminNote(e.target.value)}
-                placeholder="ثبت نتیجه تماس با مشتری، شماره پیش‌فاکتور صادره، تاریخ پیگیری بعدی..."
+                placeholder="ثبت نتیجه تماس با مشتری، شماره استعلام قیمت صادره، تاریخ پیگیری بعدی..."
                 rows={3}
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-amber-400 leading-relaxed"
               />

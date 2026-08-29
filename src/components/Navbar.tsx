@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Home, 
   User, 
@@ -70,14 +71,14 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, [mobileMenuOpen]);
 
   // Exact 7 items from the reference UI/UX mockup
-  const navItems: { id: PageSection; label: string; icon: React.ElementType }[] = [
-    { id: 'home', label: 'خانه', icon: Home },
-    { id: 'about', label: 'درباره ما', icon: User },
-    { id: 'products', label: 'محصولات', icon: Package },
-    { id: 'services', label: 'خدمات', icon: Wrench },
-    { id: 'projects', label: 'پروژه‌ها', icon: Building },
-    { id: 'knowledge', label: 'مجله', icon: BookOpen },
-    { id: 'contact', label: 'تماس با ما', icon: Compass },
+  const navItems: { id: PageSection; path: string; label: string; icon: React.ElementType }[] = [
+    { id: 'home', path: '/', label: 'خانه', icon: Home },
+    { id: 'about', path: '/about', label: 'درباره ما', icon: User },
+    { id: 'products', path: '/products', label: 'محصولات', icon: Package },
+    { id: 'services', path: '/services', label: 'خدمات', icon: Wrench },
+    { id: 'projects', path: '/projects', label: 'پروژه‌ها', icon: Building },
+    { id: 'knowledge', path: '/magazine', label: 'مجله', icon: BookOpen },
+    { id: 'contact', path: '/contact', label: 'تماس با ما', icon: Compass },
   ];
 
   const handleNavClick = (section: PageSection) => {
@@ -90,7 +91,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="flex items-center justify-between w-full">
         
         {/* Left Side: Brand Logo */}
-        <div 
+        <Link 
+          to="/"
           onClick={() => handleNavClick('home')}
           className="flex items-center gap-3 cursor-pointer select-none group relative z-[60]"
           id="brand-logo-btn"
@@ -111,17 +113,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               طیوران صنعت
             </span>
           </div>
-
           
-        </div>
+        </Link>
 
         {/* Center / Right Nav Items (Premium Glass without Icons) */}
         <nav className="hidden lg:flex items-center gap-1.5">
           {navItems.map((item) => {
             const isActive = currentSection === item.id;
             return (
-              <button
+              <Link
                 key={item.id}
+                to={item.path}
                 id={`nav-link-${item.id}`}
                 onClick={() => handleNavClick(item.id)}
                 className={`relative px-5 py-2.5 text-[13px] font-bold rounded-xl transition-all duration-300 cursor-pointer flex items-center group ${
@@ -131,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <span className="relative z-10 tracking-wide">{item.label}</span>
-              </button>
+              </Link>
             );
           })}
         </nav>
@@ -225,36 +227,41 @@ export const Navbar: React.FC<NavbarProps> = ({
                 const isActive = currentSection === item.id;
                 const Icon = item.icon;
                 return (
-                  <motion.button
+                  <motion.div
                     key={item.id}
                     initial={{ opacity: 0, x: 40 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.4, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
-                    onClick={() => handleNavClick(item.id)}
-                    className={`relative flex items-center justify-between w-full p-3 sm:p-4 rounded-2xl transition-all duration-300 ${isActive ? 'scale-[1.02]' : 'active:scale-95'}`}
+                    className="w-full"
                   >
-                    {isActive && (
-                      <motion.div
-                        layoutId="active-mobile-bg"
-                        className="absolute inset-0 bg-blue-50/80 rounded-2xl border border-blue-100/60 shadow-sm"
-                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                      />
-                    )}
-                    
-                    <div className="relative z-10 flex items-center gap-4">
-                      <div className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl transition-all duration-400 ${isActive ? 'bg-[#003F86] shadow-md shadow-blue-900/20 rotate-3 scale-110' : 'bg-slate-100 text-slate-400'}`}>
-                        <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${isActive ? 'text-amber-400' : ''}`} />
+                    <Link
+                      to={item.path}
+                      onClick={() => handleNavClick(item.id)}
+                      className={`relative flex items-center justify-between w-full p-3 sm:p-4 rounded-2xl transition-all duration-300 ${isActive ? 'scale-[1.02]' : 'active:scale-95'}`}
+                    >
+                      {isActive && (
+                        <motion.div
+                          layoutId="active-mobile-bg"
+                          className="absolute inset-0 bg-blue-50/80 rounded-2xl border border-blue-100/60 shadow-sm"
+                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                        />
+                      )}
+                      
+                      <div className="relative z-10 flex items-center gap-4">
+                        <div className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl transition-all duration-400 ${isActive ? 'bg-[#003F86] shadow-md shadow-blue-900/20 rotate-3 scale-110' : 'bg-slate-100 text-slate-400'}`}>
+                          <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${isActive ? 'text-amber-400' : ''}`} />
+                        </div>
+                        <span className={`text-base sm:text-lg font-bold tracking-wide ${isActive ? 'text-[#003F86] font-black' : 'text-slate-600'}`}>
+                          {item.label}
+                        </span>
                       </div>
-                      <span className={`text-base sm:text-lg font-bold tracking-wide ${isActive ? 'text-[#003F86] font-black' : 'text-slate-600'}`}>
-                        {item.label}
-                      </span>
-                    </div>
-                    
-                    {isActive && (
-                      <ChevronLeft className="relative z-10 w-5 h-5 text-[#003F86]/50" />
-                    )}
-                  </motion.button>
+                      
+                      {isActive && (
+                        <ChevronLeft className="relative z-10 w-5 h-5 text-[#003F86]/50" />
+                      )}
+                    </Link>
+                  </motion.div>
                 );
               })}
 

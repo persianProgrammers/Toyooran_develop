@@ -57,7 +57,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigateTab }) => {
       tag: 'مطالعه موردی'
     },
     {
-      title: 'درخواست‌های پیش‌فاکتور',
+      title: 'درخواست‌های استعلام قیمت',
       count: quoteRequests.length,
       unit: 'درخواست',
       icon: FileText,
@@ -109,7 +109,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigateTab }) => {
               className="bg-slate-800/80 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 border border-slate-600 transition-colors"
             >
               <FileText className="w-4 h-4 text-amber-400" />
-              <span>بررسی پیش‌فاکتورها ({newQuotes.length})</span>
+              <span>بررسی استعلام قیمتها ({newQuotes.length})</span>
             </button>
           </div>
         </div>
@@ -169,7 +169,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ onNavigateTab }) => {
           <div className="flex items-center justify-between pb-3 border-b border-slate-800">
             <div className="flex items-center gap-2">
               <FileText className="w-4 h-4 text-emerald-400" />
-              <h3 className="text-sm font-bold text-white">آخرین درخواست‌های پیش‌فاکتور</h3>
+              <h3 className="text-sm font-bold text-white">آخرین درخواست‌های استعلام قیمت</h3>
             </div>
             <button
               onClick={() => onNavigateTab('quotes')}

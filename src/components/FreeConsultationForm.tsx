@@ -120,7 +120,7 @@ export const FreeConsultationForm: React.FC<FreeConsultationFormProps> = ({
                   <option value="کارخانه خوراک و مکمل">احداث کارخانه خوراک دام و طیور</option>
                   <option value="سوله و سالن صنعتی">ساخت سوله و سالن‌های صنعتی</option>
                   <option value="تجهیزات گرمایشی و جت هیتر">سیستم‌های گرمایشی و تهویه</option>
-                  <option value="استعلام قیمت و پیش‌فاکتور">استعلام قیمت و دریافت پیش‌فاکتور</option>
+                  <option value="استعلام قیمت">استعلام قیمت</option>
                   <option value="سایر موارد">مشاوره عمومی / سایر</option>
                 </select>
                 <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">

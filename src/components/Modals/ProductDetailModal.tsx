@@ -74,32 +74,6 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   className="w-full h-full"
                 />
               </div>
-
-              {/* Download Datasheet Box */}
-              <div className="bg-blue-50/70 border border-blue-200/80 rounded-3xl p-4 flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5 text-xs text-[#003F86] font-bold">
-                  <FileText className="w-5 h-5 text-[#003F86] shrink-0" />
-                  <div>
-                    <span className="block">کاتالوگ و دیتاشیت مهندسی</span>
-                    <span className="text-[10px] text-slate-500 font-mono font-normal">PDF Datasheet</span>
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleDownloadCatalog}
-                  className="bg-[#003F86] hover:bg-[#003366] text-white font-bold py-2 px-3.5 rounded-xl text-xs flex items-center gap-1.5 transition-colors shadow-2xs shrink-0"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>دانلود کاتالوگ</span>
-                </button>
-              </div>
-
-              {downloadSuccess && (
-                <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-xl flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>کاتالوگ فنی {product.code} با موفقیت دریافت گردید.</span>
-                </div>
-              )}
             </div>
 
             {/* Title & Intro */}
@@ -227,22 +201,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         <div className="sticky bottom-0 bg-slate-900 text-white p-4 sm:p-6 rounded-b-3xl flex flex-col sm:flex-row items-center justify-between gap-4 z-20">
           <div>
             <h4 className="font-bold text-amber-400 text-sm">
-              استعلام قیمت رسمی و پیش‌فاکتور برای {product.code}
+              استعلام قیمت رسمی برای {product.code}
             </h4>
             <p className="text-xs text-slate-300 font-light mt-0.5">
-              صدور پیش‌فاکتور با محاسبه ظرفیت و متراژ دقیق سالن شما ظرف ۲ ساعت کاری
+              جهت دریافت قیمت روز و استعلام، با ما تماس بگیرید.
             </p>
           </div>
           <div className="flex items-center gap-2.5 w-full sm:w-auto">
-            <button
-              onClick={() => {
-                onClose();
-                onOpenConsultation();
-              }}
-              className="flex-1 sm:flex-initial bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs border border-slate-700 transition-colors"
-            >
-              مشاوره فنی
-            </button>
             <button
               onClick={() => {
                 onClose();
@@ -250,8 +215,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               }}
               className="flex-1 sm:flex-initial bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-2.5 px-5 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-colors shadow-md shrink-0"
             >
-              <FileText className="w-4 h-4" />
-              <span>دریافت پیش‌فاکتور</span>
+              <PhoneCall className="w-4 h-4" />
+              <span>استعلام قیمت</span>
             </button>
           </div>
         </div>

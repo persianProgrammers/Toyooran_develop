@@ -221,7 +221,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
             >
               <div className="flex items-center gap-2.5">
                 <FileText className="w-4 h-4" />
-                <span>استعلام‌های پیش‌فاکتور</span>
+                <span>استعلام‌های استعلام قیمت</span>
               </div>
               <span className="bg-amber-400 text-slate-950 text-[10px] px-1.5 py-0.5 rounded-full font-black">
                 {quotes.length}
@@ -293,7 +293,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
                   <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
                     <span className="text-xs text-slate-500 font-semibold block mb-1">کل استعلام‌های ثبت‌شده</span>
                     <span className="text-2xl font-black text-slate-900 font-mono">{quotes.length}</span>
-                    <span className="text-[10px] text-amber-600 block mt-1">پیش‌فاکتور آنلاین</span>
+                    <span className="text-[10px] text-amber-600 block mt-1">استعلام قیمت آنلاین</span>
                   </div>
 
                   <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
@@ -435,7 +435,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
                         >
                           <option value="new">🟡 جدید (بررسی نشده)</option>
                           <option value="reviewed">🔵 در حال بررسی مهندسی</option>
-                          <option value="quoted">🟢 پیش‌فاکتور صادر شد</option>
+                          <option value="quoted">🟢 استعلام قیمت صادر شد</option>
                           <option value="closed">⚪ بسته شده</option>
                         </select>
                       </div>

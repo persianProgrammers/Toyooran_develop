@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Phone, 
   Mail, 
@@ -11,8 +12,6 @@ import {
   ChevronLeft
 } from 'lucide-react';
 
-
-
 interface FooterProps {
   onNavigate: (id: string) => void;
   onSelectCategory: (id: string) => void;
@@ -24,11 +23,13 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory, onOpenConsultation, onOpenQuote, companyInfo, categories }) => {
   const navigation = [
-    { title: 'صفحه اصلی', href: '#home' },
-    { title: 'درباره ما', href: '#about' },
-    { title: 'پروژه‌ها', href: '#projects' },
-    { title: 'محصولات', href: '#services' },
-    { title: 'تماس با ما', href: '#contact' },
+    { title: 'صفحه اصلی', path: '/' },
+    { title: 'درباره ما', path: '/about' },
+    { title: 'پروژه‌ها', path: '/projects' },
+    { title: 'محصولات', path: '/products' },
+    { title: 'خدمات', path: '/services' },
+    { title: 'مجله', path: '/magazine' },
+    { title: 'تماس با ما', path: '/contact' },
   ];
 
   
@@ -101,10 +102,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory, on
             <ul className="space-y-3">
               {navigation.map((nav, idx) => (
                 <li key={idx}>
-                  <a href={nav.href} className="text-slate-400 hover:text-amber-400 text-sm font-medium transition-colors flex items-center gap-1.5 group">
+                  <Link to={nav.path} className="text-slate-400 hover:text-amber-400 text-sm font-medium transition-colors flex items-center gap-1.5 group">
                     <ChevronLeft className="w-3.5 h-3.5 text-slate-600 group-hover:text-amber-400 transition-colors" />
                     {nav.title}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -118,28 +119,28 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory, on
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#services" className="text-slate-400 hover:text-blue-400 text-sm font-medium transition-colors flex items-center gap-1.5 group">
+                <Link to="/services" className="text-slate-400 hover:text-blue-400 text-sm font-medium transition-colors flex items-center gap-1.5 group">
                   <ChevronLeft className="w-3.5 h-3.5 text-slate-600 group-hover:text-blue-400 transition-colors" />
                   ماشین‌آلات کارخانجات خوراک
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="text-slate-400 hover:text-blue-400 text-sm font-medium transition-colors flex items-center gap-1.5 group">
+                <Link to="/products" className="text-slate-400 hover:text-blue-400 text-sm font-medium transition-colors flex items-center gap-1.5 group">
                   <ChevronLeft className="w-3.5 h-3.5 text-slate-600 group-hover:text-blue-400 transition-colors" />
                   تجهیزات مدرن مرغداری
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="text-slate-400 hover:text-blue-400 text-sm font-medium transition-colors flex items-center gap-1.5 group">
+                <Link to="/services" className="text-slate-400 hover:text-blue-400 text-sm font-medium transition-colors flex items-center gap-1.5 group">
                   <ChevronLeft className="w-3.5 h-3.5 text-slate-600 group-hover:text-blue-400 transition-colors" />
                   سازه‌ها و سوله‌های صنعتی
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="text-slate-400 hover:text-blue-400 text-sm font-medium transition-colors flex items-center gap-1.5 group">
+                <Link to="/products" className="text-slate-400 hover:text-blue-400 text-sm font-medium transition-colors flex items-center gap-1.5 group">
                   <ChevronLeft className="w-3.5 h-3.5 text-slate-600 group-hover:text-blue-400 transition-colors" />
                   مواد اولیه و مکمل‌های دارویی
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

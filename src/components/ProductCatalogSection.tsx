@@ -34,7 +34,6 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [onlyIndustrialMachines, setOnlyIndustrialMachines] = useState(false);
   const [visibleCount, setVisibleCount] = useState(6);
   
   const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -42,7 +41,7 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
 
   useEffect(() => {
     setVisibleCount(6);
-  }, [selectedCategory, searchQuery, onlyIndustrialMachines]);
+  }, [selectedCategory, searchQuery]);
 
   useEffect(() => {
     if (isInView) {
@@ -54,7 +53,7 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
     const matchesCat = selectedCategory === 'all' || p.category === selectedCategory;
     const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           p.code.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesIndustrial = onlyIndustrialMachines ? p.isIndustrialMachine : true;
+    const matchesIndustrial = true;
     return matchesCat && matchesSearch && matchesIndustrial;
   });
 
@@ -144,20 +143,8 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
               />
               <Search className="w-5 h-5 text-slate-400 absolute right-4 top-1/2 -translate-y-1/2" />
             </div>
-
-            <button
-              onClick={() => setOnlyIndustrialMachines(!onlyIndustrialMachines)}
-              className={`w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 ${
-                onlyIndustrialMachines
-                  ? 'bg-amber-400 text-slate-900 shadow-md border border-amber-400'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:border-amber-400 hover:text-amber-600 shadow-sm'
-              }`}
-            >
-              <Zap className={`w-4 h-4 ${onlyIndustrialMachines ? 'text-slate-900' : 'text-amber-500'}`} />
-              <span>فقط ماشین‌آلات صنعتی</span>
-            </button>
-          </div>
         </div>
+          </div>
 
         {/* 
           ========================================================
@@ -178,7 +165,7 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
                 <h3 className="text-2xl font-black text-slate-800 mb-3">محصولی یافت نشد</h3>
                 <p className="text-slate-500 mb-8 max-w-md">هیچ محصولی با این فیلترها وجود ندارد. لطفاً کلمات کلیدی یا دسته‌بندی را تغییر دهید.</p>
                 <button 
-                  onClick={() => { setSelectedCategory('all'); setSearchQuery(''); setOnlyIndustrialMachines(false); }}
+                  onClick={() => { setSelectedCategory('all'); setSearchQuery('');  }}
                   className="px-8 py-3 rounded-full bg-[#003F86] text-white font-bold hover:bg-blue-800 transition-colors shadow-lg shadow-blue-900/20"
                 >
                   نمایش همه محصولات
@@ -245,7 +232,7 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
                           className="flex-1 bg-[#003F86] hover:bg-blue-800 text-white py-3.5 px-4 rounded-2xl font-bold text-sm transition-all shadow-lg shadow-blue-900/20 hover:shadow-blue-900/40 flex justify-center items-center gap-2"
                         >
                           <PhoneCall className="w-4 h-4" />
-                          مشاوره و استعلام
+                          استعلام قیمت
                         </button>
                         
                         <button

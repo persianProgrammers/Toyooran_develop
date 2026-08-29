@@ -120,7 +120,7 @@ export const BackupTab: React.FC = () => {
             </div>
             <h3 className="text-sm font-bold text-white">خروجی و دانلود پشتیبان (Export JSON)</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
-              دانلود یک فایل استاندارد JSON شامل کل دیتابیس محصولات، پیش‌فاکتورها، مقالات و تنظیمات.
+              دانلود یک فایل استاندارد JSON شامل کل دیتابیس محصولات، استعلام قیمتها، مقالات و تنظیمات.
             </p>
           </div>
 

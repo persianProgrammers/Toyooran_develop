@@ -98,7 +98,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
       capacity: formData.capacity,
       location: formData.deliveryLocation,
       message: formData.additionalNotes,
-      source: 'فرم استعلام پیش‌فاکتور'
+      source: 'فرم استعلام قیمت'
     });
     setIsSubmitted(true);
   };
@@ -121,7 +121,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
             </div>
             <div>
               <h2 className="text-base sm:text-lg font-black text-white">
-                درخواست رسمی پیش‌فاکتور و استعلام قیمت
+                درخواست رسمی استعلام قیمت
               </h2>
               <span className="text-xs text-amber-400 font-medium">
                 محاسبه دقیق بر اساس ظرفیت، مشخصات فنی و محل تحویل
@@ -143,10 +143,10 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
               <CheckCircle2 className="w-10 h-10" />
             </div>
             <h3 className="text-xl font-black text-slate-900">
-              درخواست پیش‌فاکتور شما با موفقیت ثبت گردید
+              درخواست استعلام قیمت شما با موفقیت ثبت گردید
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-              کارشناسان واحد فروش طیوران صنعت پویا پس از بررسی فنی و محاسبه مقادیر، ظرف حداکثر ۲ ساعت کاری پیش‌فاکتور رسمی را از طریق واتس‌اپ و تماس با شماره <strong>{formData.phoneNumber}</strong> برای شما ارسال خواهند کرد.
+              کارشناسان واحد فروش طیوران صنعت پویا پس از بررسی فنی و محاسبه مقادیر، ظرف حداکثر ۲ ساعت کاری استعلام قیمت رسمی را از طریق واتس‌اپ و تماس با شماره <strong>{formData.phoneNumber}</strong> برای شما ارسال خواهند کرد.
             </p>
             <div className="pt-4">
               <button
@@ -360,7 +360,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 </div>
 
                 <div className="bg-blue-50/80 p-3 rounded-xl border border-blue-100 text-[11px] text-[#003F86] leading-relaxed">
-                  پیش‌فاکتور با فرمت رسمی شرکتی و شامل شرایط پرداخت، مدت تحویل و گارانتی به شماره همراه شما ارسال خواهد شد.
+                  قیمت با فرمت رسمی شرکتی و شامل شرایط پرداخت، مدت تحویل و گارانتی به شماره همراه شما ارسال خواهد شد.
                 </div>
               </div>
             )}
@@ -394,7 +394,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   type="submit"
                   className="bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-7 py-2.5 rounded-xl text-xs flex items-center gap-1.5 transition-colors shadow-md"
                 >
-                  <span>ثبت و دریافت پیش‌فاکتور</span>
+                  <span>ثبت درخواست استعلام قیمت</span>
                   <CheckCircle2 className="w-4 h-4" />
                 </button>
               )}

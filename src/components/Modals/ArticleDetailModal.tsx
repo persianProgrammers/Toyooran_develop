@@ -114,7 +114,7 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
         <div className="sticky bottom-0 bg-slate-900 text-white p-4 sm:p-6 rounded-b-3xl flex flex-col sm:flex-row items-center justify-between gap-4 z-20">
           <div>
             <h4 className="font-bold text-amber-400 text-sm">
-              نیاز به مشاوره فنی در رابطه با محاسبات این مبحث دارید؟
+              نیاز به استعلام قیمت در رابطه با تجهیزات این مبحث دارید؟
             </h4>
             <p className="text-xs text-slate-300 font-light mt-0.5">
               تیم مهندسی طیوران صنعت پویا آماده پاسخگویی تخصصی به سوالات شماست.
@@ -127,7 +127,7 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
             }}
             className="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors shrink-0 shadow-md"
           >
-            <span>درخواست مشاوره فنی</span>
+            <span>درخواست استعلام قیمت</span>
             <ChevronLeft className="w-4 h-4" />
           </button>
         </div>

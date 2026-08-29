@@ -1,3 +1,4 @@
+import { ProductPage } from './components/ProductPage';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import Lenis from 'lenis';
@@ -26,9 +27,9 @@ import { AboutPage } from './components/AboutPage';
 import { ContactPage } from './components/ContactPage';
 import { AboutContactUnifiedSection } from './components/AboutContactUnifiedSection';
 import { Footer } from './components/Footer';
+import { NotFoundPage } from './components/NotFoundPage'; // Added
 
 // Modals
-import { ProductDetailModal } from './components/Modals/ProductDetailModal';
 import { CaseStudyModal } from './components/Modals/CaseStudyModal';
 import { ServiceDetailModal } from './components/Modals/ServiceDetailModal';
 import { GlobalSearchModal } from './components/Modals/GlobalSearchModal';
@@ -38,6 +39,8 @@ import { useParams } from 'react-router-dom';
 
 const SEORoute = ({ title, description, children }: { title: string, description: string, children: React.ReactNode }) => {
   useEffect(() => {
+    // We still update the title client-side for dynamic navigation, 
+    // but crawlers will see the server-injected one from server.ts!
     document.title = title;
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
@@ -47,10 +50,19 @@ const SEORoute = ({ title, description, children }: { title: string, description
   return <>{children}</>;
 };
 
+// Component to scroll to top on route change
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [pathname]);
+  return null;
+};
+
 const MagazineArticleWrapper = ({ articles, onBack, onSelectProductById }: any) => {
   const { articleId } = useParams();
   const article = articles.find((a: any) => a.id === articleId);
-  if (!article) return <div className="p-20 text-center">مقاله یافت نشد</div>;
+  if (!article) return <NotFoundPage />;
   return (
     <SEORoute title={`${article.title} | مجله طیوران صنعت پویا`} description={article.excerpt}>
       <MagazineArticle article={article} onBack={onBack} onSelectProductById={onSelectProductById} />
@@ -66,11 +78,6 @@ const MainAppInner: React.FC = () => {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      
-      
-      
-      
-      
       touchMultiplier: 2,
       infinite: false,
     });
@@ -97,11 +104,7 @@ const MainAppInner: React.FC = () => {
     heroCms 
   } = useData();
 
-  // Route State: detects if URL is /admin or #admin
-  
-
   // Navigation and consultation state
-  
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory | 'all'>('all');
 
   // Unified Consultation / Quote Form prefill state
@@ -110,16 +113,16 @@ const MainAppInner: React.FC = () => {
   const [consultationMessage, setConsultationMessage] = useState<string | undefined>('');
 
   // Modals state
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const handleSelectProduct = (product: Product) => {
+    navigate(`/products/${product.code || product.id}`);
+  };
+
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
-
-  // Sync browser URL & popstate
-  
 
   const navigateToPublic = () => {
     navigate('/');
@@ -133,7 +136,6 @@ const MainAppInner: React.FC = () => {
     else if (section === 'knowledge') navigate('/magazine');
     else if (section === 'about') navigate('/about');
     else if (section === 'contact') navigate('/contact');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   
   // Helper to determine currentSection for Navbar
@@ -148,7 +150,6 @@ const MainAppInner: React.FC = () => {
   const handleSelectCategory = (cat: ProductCategory | 'all') => {
     setSelectedCategory(cat);
     navigate('/products');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Unified Handler: Redirects all quotes and consultations to the unified form in Contact Us
@@ -158,12 +159,11 @@ const MainAppInner: React.FC = () => {
     if (message !== undefined) setConsultationMessage(message);
 
     // Close any open modals
-    setSelectedProduct(null);
     setSelectedProject(null);
     setSelectedService(null);
     setIsAiAssistantOpen(false);
 
-    if (currentSection === 'home') {
+    if (currentSection === 'home' && location.pathname === '/contact') {
       const formEl = document.getElementById('free-consultation-form');
       if (formEl) {
         formEl.scrollIntoView({ behavior: 'smooth' });
@@ -172,10 +172,9 @@ const MainAppInner: React.FC = () => {
     }
 
     navigate('/contact');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(() => {
       document.getElementById('free-consultation-form')?.scrollIntoView({ behavior: 'smooth' });
-    }, 120);
+    }, 200);
   };
 
   const handleRequestQuoteForProduct = (product: Product) => {
@@ -189,7 +188,7 @@ const MainAppInner: React.FC = () => {
   const handleSelectProductById = (productId: string) => {
     const found = products.find((p) => p.id === productId);
     if (found) {
-      setSelectedProduct(found);
+      handleSelectProduct(found);
     }
   };
 
@@ -204,6 +203,7 @@ const MainAppInner: React.FC = () => {
   // Public Website View
   return (
     <div className="min-h-screen bg-blueprint-light text-[#333132] font-['Estedad',sans-serif] flex flex-col selection:bg-amber-400 selection:text-slate-950" dir="rtl">
+      <ScrollToTop />
       <CustomCursor />
       <ScrollProgress />
       
@@ -232,12 +232,13 @@ const MainAppInner: React.FC = () => {
               <AboutContactUnifiedSection />
             </Hero>
           } />
+          <Route path="/products/:productId" element={<ProductPage />} />
           <Route path="/products" element={
             <ProductCatalogSection
               products={products}
               selectedCategory={selectedCategory}
               onSelectCategory={handleSelectCategory}
-              onSelectProduct={setSelectedProduct}
+              onSelectProduct={handleSelectProduct}
               onRequestQuoteForProduct={handleRequestQuoteForProduct}
             />
           } />
@@ -264,7 +265,6 @@ const MainAppInner: React.FC = () => {
                 onSelectArticle={(article) => {
                   setSelectedArticle(article);
                   navigate(`/magazine/${article.id}`);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
               />
             </SEORoute>
@@ -290,6 +290,8 @@ const MainAppInner: React.FC = () => {
               />
             </SEORoute>
           } />
+          {/* Catch-all for unknown routes */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
 
@@ -304,16 +306,6 @@ const MainAppInner: React.FC = () => {
       />
 
       {/* Detail Modals (Technical specifications & info) */}
-      {selectedProduct && (
-        <ProductDetailModal
-          product={selectedProduct}
-          isOpen={!!selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-          onRequestQuote={handleRequestQuoteForProduct}
-          onOpenConsultation={() => handleOpenUnifiedConsultation('مرغداری گوشتی', selectedProduct.name)}
-        />
-      )}
-
       {selectedProject && (
         <CaseStudyModal
           project={selectedProject}
@@ -335,7 +327,7 @@ const MainAppInner: React.FC = () => {
       <GlobalSearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
-        onSelectProduct={setSelectedProduct}
+        onSelectProduct={handleSelectProduct}
         onSelectProject={setSelectedProject}
         onSelectArticle={setSelectedArticle}
       />

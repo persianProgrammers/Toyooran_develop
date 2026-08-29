@@ -62,7 +62,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({ currentTab, onSelect
       items: [
         { 
           id: 'quotes' as AdminTab, 
-          label: 'درخواست پیش‌فاکتور', 
+          label: 'درخواست استعلام قیمت', 
           icon: FileText, 
           badge: newQuotes > 0 ? `${newQuotes} جدید` : quoteRequests.length,
           badgeHighlight: newQuotes > 0

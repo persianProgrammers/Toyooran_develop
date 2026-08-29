@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { LazyHeroImage } from './LazyHeroImage';
 const heroPoultryImg = '/images/poultry-1.jpg';
 import { 
@@ -410,21 +411,21 @@ const Hero: React.FC<HeroProps> = ({
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
           >
-            <button
-              onClick={scrollToCards}
+            <Link
+              to="/products"
               className="w-full sm:w-auto bg-gradient-to-r from-amber-400 to-[#FF9F14] hover:from-amber-300 hover:to-amber-400 text-slate-950 font-bold px-8 py-3.5 rounded-full text-sm sm:text-base flex items-center justify-center gap-2 shadow-xl hover:shadow-amber-500/20 hover:-translate-y-1 transition-all"
             >
               <Package className="w-4 h-4" />
               <span>{cmsHero?.ctaPrimaryText || 'محصولات و تجهیزات'}</span>
-            </button>
+            </Link>
 
-            <button
-              onClick={() => onNavigate('contact')}
+            <Link
+              to="/contact"
               className="w-full sm:w-auto bg-slate-900/40 hover:bg-slate-800/60 text-white font-bold px-8 py-3.5 rounded-full text-sm sm:text-base flex items-center justify-center gap-2 border border-white/20 backdrop-blur-md shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all"
             >
               <PhoneCall className="w-4 h-4 text-amber-400" />
               <span>{cmsHero?.ctaSecondaryText === 'ارتباط با مهندسین' ? 'تماس با ما' : (cmsHero?.ctaSecondaryText || 'تماس با ما')}</span>
-            </button>
+            </Link>
           </motion.div>
         </div>
 
