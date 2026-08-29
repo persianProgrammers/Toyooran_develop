@@ -35,6 +35,18 @@ import { GlobalSearchModal } from './components/Modals/GlobalSearchModal';
 import { AiEngineerAssistantModal } from './components/AiEngineerAssistantModal';
 
 import { useParams } from 'react-router-dom';
+
+const SEORoute = ({ title, description, children }: { title: string, description: string, children: React.ReactNode }) => {
+  useEffect(() => {
+    document.title = title;
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', description);
+    }
+  }, [title, description]);
+  return <>{children}</>;
+};
+
 const MagazineArticleWrapper = ({ articles, onBack, onSelectProductById }: any) => {
   const { articleId } = useParams();
   const article = articles.find((a: any) => a.id === articleId);
