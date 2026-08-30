@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from 'motion/react';
 import { 
-  Search, 
+  Search,
+  Layers, 
   Zap, 
   PhoneCall,
   ArrowLeft,
@@ -14,25 +15,33 @@ import { LazyImage } from './LazyImage';
 
 interface ProductCatalogSectionProps {
   products: Product[];
+  selectedCategory?: ProductCategory | 'all';
+  onSelectCategory?: (cat: ProductCategory | 'all') => void;
   onSelectProduct: (product: Product) => void;
   onRequestQuoteForProduct: (product: Product) => void;
 }
 
-const CATEGORIES_DATA = [
-  { id: 'feeding', title: 'سیستم دانخوری' },
-  { id: 'drinking', title: 'سیستم آبخوری' },
-  { id: 'ventilation', title: 'تهویه و کنترل اقلیم' },
-  { id: 'machinery', title: 'ماشین‌آلات خط خوراک' },
-  { id: 'structure', title: 'ساخت و تجهیز سوله' },
-];
+import { CategoryMarquee } from "./CategoryMarquee";
+
 
 
 export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({ 
   products, 
+  selectedCategory: propSelectedCategory,
+  onSelectCategory: propOnSelectCategory,
   onSelectProduct,
   onRequestQuoteForProduct
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<ProductCategory | 'all'>('all');
+  const [localCategory, setLocalCategory] = useState<ProductCategory | 'all'>('all');
+  const selectedCategory = propSelectedCategory !== undefined ? propSelectedCategory : localCategory;
+  
+  const handleSelectCategory = (cat: ProductCategory | 'all') => {
+    if (propOnSelectCategory) {
+      propOnSelectCategory(cat);
+    } else {
+      setLocalCategory(cat);
+    }
+  };
   const [searchQuery, setSearchQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(6);
   
@@ -96,40 +105,26 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
         <InnerScrollIndicator />
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-16 lg:pb-24 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-16 lg:pb-24 relative z-10">
 
         {/* 
           ========================================================
           FILTERS & SEARCH
           ========================================================
         */}
-        <div className="mb-16 relative z-20">
-          {/* Wrapped Category Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
-            <button
-              onClick={() => setSelectedCategory('all')}
-              className={`px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${
-                selectedCategory === 'all'
-                  ? 'bg-gradient-to-r from-[#003F86] to-blue-700 text-white border-blue-600 shadow-xl shadow-blue-900/20 scale-105'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-[#003F86] hover:text-[#003F86]'
-              }`}
-            >
-              همه محصولات
-            </button>
-            {CATEGORIES_DATA.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id as ProductCategory)}
-                className={`px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${
-                  selectedCategory === cat.id
-                    ? 'bg-gradient-to-r from-[#003F86] to-blue-700 text-white border-blue-600 shadow-xl shadow-blue-900/20 scale-105'
-                    : 'bg-white text-slate-600 border-slate-200 hover:border-[#003F86] hover:text-[#003F86]'
-                }`}
-              >
-                {cat.title}
-              </button>
-            ))}
+        <div className="w-full flex flex-col justify-start mb-4 relative z-20 pt-8 sm:pt-12 md:pt-16">
+          <div className="flex items-center justify-center gap-4 mb-10 w-full opacity-60">
+            <div className="h-px bg-slate-400 flex-1 max-w-[40px] sm:max-w-[60px]" />
+            <h3 className="text-[11px] sm:text-xs font-bold text-slate-500 tracking-widest whitespace-nowrap">
+              دسته‌بندی محصولات
+            </h3>
+            <div className="h-px bg-slate-400 flex-1 max-w-[40px] sm:max-w-[60px]" />
           </div>
+          {/* Infinite Draggable Category Marquee */}
+          <CategoryMarquee 
+            selectedCategory={selectedCategory} 
+            onSelectCategory={handleSelectCategory} 
+          />
 
           {/* Search & Toggles */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-3xl mx-auto">
@@ -151,7 +146,7 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
           PRODUCT GRID (DRIBBBLE STYLE / MINIMALIST)
           ========================================================
         */}
-        <motion.div  className="min-h-[500px]">
+        <motion.div className="mt-2 sm:mt-4">
             {filteredProducts.length === 0 ? (
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -165,7 +160,7 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
                 <h3 className="text-2xl font-black text-slate-800 mb-3">محصولی یافت نشد</h3>
                 <p className="text-slate-500 mb-8 max-w-md">هیچ محصولی با این فیلترها وجود ندارد. لطفاً کلمات کلیدی یا دسته‌بندی را تغییر دهید.</p>
                 <button 
-                  onClick={() => { setSelectedCategory('all'); setSearchQuery('');  }}
+                  onClick={() => { handleSelectCategory('all'); setSearchQuery('');  }}
                   className="px-8 py-3 rounded-full bg-[#003F86] text-white font-bold hover:bg-blue-800 transition-colors shadow-lg shadow-blue-900/20"
                 >
                   نمایش همه محصولات
@@ -180,7 +175,7 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: "-50px" }}
                       transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
-                      key={product.id}
+                      key={`${product.id}-${selectedCategory}`}
                       className="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl border border-slate-100 transition-all duration-500 flex flex-col"
                     >
                     {/* Image Area */}

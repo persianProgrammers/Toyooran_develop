@@ -60,7 +60,7 @@ const ThematicParticles = ({ id, isHovered }: { id: string, isHovered: boolean }
     duration: Math.random() * 2 + 1,
   }));
 
-  if (id === 'machinery') {
+  if (id === 'heating') {
     return (
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {particles.map(p => (
@@ -94,7 +94,7 @@ const ThematicParticles = ({ id, isHovered }: { id: string, isHovered: boolean }
     );
   }
 
-  if (id === 'structure') {
+  if (id === 'cooling') {
     return (
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {particles.map(p => (
@@ -111,7 +111,7 @@ const ThematicParticles = ({ id, isHovered }: { id: string, isHovered: boolean }
     );
   }
 
-  if (id === 'feed_pharma') {
+  if (id === 'other') {
     return (
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {particles.map(p => (
@@ -172,10 +172,10 @@ const ServiceCard: React.FC<{ card: any, idx: number, onClick: () => void }> = (
               {(() => {
                 const getRingColors = (id) => {
                   switch(id) {
-                    case 'machinery': return ['group-hover:border-blue-400/50', 'group-hover:border-blue-300/30'];
+                    case 'heating': return ['group-hover:border-blue-400/50', 'group-hover:border-blue-300/30'];
                     case 'ventilation': return ['group-hover:border-amber-400/50', 'group-hover:border-amber-300/30'];
-                    case 'structure': return ['group-hover:border-emerald-400/50', 'group-hover:border-emerald-300/30'];
-                    case 'feed_pharma': return ['group-hover:border-rose-400/50', 'group-hover:border-rose-300/30'];
+                    case 'cooling': return ['group-hover:border-emerald-400/50', 'group-hover:border-emerald-300/30'];
+                    case 'other': return ['group-hover:border-rose-400/50', 'group-hover:border-rose-300/30'];
                     default: return ['group-hover:border-amber-400/50', 'group-hover:border-amber-300/30'];
                   }
                 };
@@ -191,7 +191,7 @@ const ServiceCard: React.FC<{ card: any, idx: number, onClick: () => void }> = (
               {/* Abstract Glass Prism - Uniquely styled per category */}
               {(() => {
                 switch(card.id) {
-                  case 'machinery': return (
+                  case 'heating': return (
                     <div className="relative w-12 h-12 sm:w-14 sm:h-14 rotate-45 border-[1px] border-blue-400/30 bg-gradient-to-br from-blue-400/10 to-transparent backdrop-blur-md group-hover:border-blue-400/80 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.4),inset_0_0_15px_rgba(59,130,246,0.2)] transition-all duration-700 group-hover:rotate-[135deg] flex items-center justify-center">
                       <div className="absolute inset-2 border-[1px] border-blue-400/20 group-hover:border-blue-400/60 transition-all duration-700 group-hover:-rotate-90" />
                       <div className="w-2.5 h-2.5 bg-blue-400/40 group-hover:bg-blue-300 rounded-sm group-hover:shadow-[0_0_12px_rgba(59,130,246,1)] transition-all duration-700" />
@@ -203,14 +203,14 @@ const ServiceCard: React.FC<{ card: any, idx: number, onClick: () => void }> = (
                       <div className="w-3 h-3 bg-amber-400/40 group-hover:bg-amber-300 rounded-full group-hover:shadow-[0_0_12px_rgba(251,191,36,1)] transition-all duration-700" />
                     </div>
                   );
-                  case 'structure': return (
+                  case 'cooling': return (
                     <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl border-[1px] border-emerald-400/30 bg-gradient-to-br from-emerald-400/10 to-transparent backdrop-blur-md group-hover:border-emerald-400/80 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.4),inset_0_0_15px_rgba(16,185,129,0.2)] transition-all duration-700 group-hover:rotate-[90deg] flex items-center justify-center overflow-hidden">
                       <div className="absolute w-full h-[1.5px] bg-emerald-400/30 group-hover:bg-emerald-400/60 transition-colors duration-700" />
                       <div className="absolute h-full w-[1.5px] bg-emerald-400/30 group-hover:bg-emerald-400/60 transition-colors duration-700" />
                       <div className="w-3.5 h-3.5 border-[1.5px] border-emerald-400/50 group-hover:border-emerald-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.8)_inset] transition-all duration-700 rotate-45" />
                     </div>
                   );
-                  case 'feed_pharma': return (
+                  case 'other': return (
                     <div className="relative w-10 h-10 sm:w-12 sm:h-12 rotate-45 border-[0.5px] border-white/20 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-sm group-hover:border-rose-400/60 group-hover:shadow-[0_0_20px_rgba(244,63,94,0.2),inset_0_0_15px_rgba(255,255,255,0.1)] transition-all duration-700 group-hover:rotate-[225deg] flex items-center justify-center">
                       <div className="absolute inset-2 border-[0.5px] border-white/10 group-hover:border-rose-400/30 transition-colors duration-700 rounded-full" />
                       <div className="absolute top-1 left-1 w-1 h-1 bg-white/20 group-hover:bg-rose-300 rounded-full transition-all duration-700 group-hover:translate-x-1 group-hover:translate-y-1" />
@@ -297,7 +297,7 @@ const Hero: React.FC<HeroProps> = ({
 
   const categoryCards: CircleCategoryCard[] = [
     {
-      id: 'machinery',
+      id: 'heating',
       title: 'ماشین‌آلات خوراک',
       categoryEn: 'Feed Machinery',
       icon: Factory,
@@ -321,7 +321,7 @@ const Hero: React.FC<HeroProps> = ({
       specs: ['بشقاب پروانه‌ای لیسانس آمریکا', 'جت هیتر و سیستم‌های گرمایشی']
     },
     {
-      id: 'structure',
+      id: 'cooling',
       title: 'سوله و سالن صنعتی',
       categoryEn: 'Turnkey Shed',
       icon: Building2,
@@ -333,7 +333,7 @@ const Hero: React.FC<HeroProps> = ({
       specs: ['سازه‌های سبک و بهداشتی', 'عایق‌بندی و هوابندی کامل']
     },
     {
-      id: 'feed_pharma',
+      id: 'other',
       title: 'خوراک و مکمل',
       categoryEn: 'Feed & Supplements',
       icon: Pill,

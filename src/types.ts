@@ -1,12 +1,15 @@
 export type PageSection = 'home' | 'projects' | 'products' | 'services' | 'knowledge' | 'about' | 'contact' | 'magazine-article';
 
 export type ProductCategory = 
-  | 'feeding' // تجهیزات سیستم دانخوری
-  | 'drinking' // تجهیزات سیستم آبخوری
-  | 'ventilation' // تجهیزات تهویه و گرمایش
-  | 'machinery' // ماشین‌آلات خط تولید خوراک و مکمل
-  | 'structure' // ساخت و تجهیز سوله و سالن
-  | 'feed_pharma'; // خوراک، مکمل و دارو
+  | 'heating'
+  | 'ventilation'
+  | 'drinking'
+  | 'cooling'
+  | 'inlet'
+  | 'feeding'
+  | 'cage'
+  | 'silo'
+  | 'other';
 
 export interface CategoryItem {
   id: ProductCategory | string;

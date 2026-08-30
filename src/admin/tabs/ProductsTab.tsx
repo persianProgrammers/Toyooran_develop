@@ -28,7 +28,7 @@ export const ProductsTab: React.FC = () => {
   const [formData, setFormData] = useState<Partial<Product>>({
     code: '',
     name: '',
-    category: 'machinery',
+    category: 'heating',
     categoryTitle: 'ماشین‌آلات خط تولید خوراک و مکمل',
     fullDescription: '',
     image: '/images/equipment-1.jpg',
@@ -42,7 +42,7 @@ export const ProductsTab: React.FC = () => {
       id: `prod-${Date.now()}`,
       code: 'TY-PROD-' + Math.floor(100 + Math.random() * 900),
       name: '',
-      category: 'machinery',
+      category: 'heating',
       categoryTitle: 'ماشین‌آلات خط تولید خوراک و مکمل',
       fullDescription: '',
       image: '/images/equipment-1.jpg',
@@ -74,7 +74,7 @@ export const ProductsTab: React.FC = () => {
       id: formData.id || `prod-${Date.now()}`,
       code: formData.code || 'TY-PROD',
       name: formData.name,
-      category: (formData.category as ProductCategory) || 'machinery',
+      category: (formData.category as ProductCategory) || 'heating',
       categoryTitle: categoryTitle,
       fullDescription: formData.fullDescription || '',
       image: formData.image || '/images/equipment-1.jpg',
@@ -292,7 +292,7 @@ export const ProductsTab: React.FC = () => {
                       <label className="block text-xs font-bold text-slate-300 mb-1">دسته‌بندی کاتالوگ</label>
                       <select
                         required
-                        value={formData.category || 'machinery'}
+                        value={formData.category || 'heating'}
                         onChange={(e) => {
                           const catId = e.target.value as ProductCategory;
                           const matchedCat = categories.find(c => c.id === catId);
