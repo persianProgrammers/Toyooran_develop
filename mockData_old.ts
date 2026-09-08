@@ -1,4 +1,3 @@
-// UI Sync triggered
 import { Project, Product, Service, Article } from '../types';
 
 export const COMPANY_INFO = {
@@ -13,6 +12,7 @@ export const COMPANY_INFO = {
   phone: '۰۵۱-۳۶۶۶۵۶۰۰',
   directSalesPhone: '۰۹۱۵۱۱۲۶۲۵۸',
   technicalSupportPhone: '۰۹۱۱۵۱۱۶۲۵۸',
+  email: 'info@toyooran.com',
   website: 'www.toyooran.com',
   address: 'مشهد، میدان مادر، مجتمع تجاری ادیب، طبقه ۳، واحد ۴۰۶',
   rdAddress: 'گرگان، دانشگاه منابع طبیعی گلستان، ساختمان دفتر تحقیق و توسعه، همکاری‌های علمی و بین‌الملل',
@@ -20,15 +20,13 @@ export const COMPANY_INFO = {
   workingHours: 'شنبه تا چهارشنبه ۸:۰۰ الی ۱۷:۰۰ | پنج‌شنبه‌ها ۸:۰۰ الی ۱۳:۰۰',
   fdaLicense: 'تنها تولیدکننده بشقاب‌های پروانه‌ای تحت لیسانس Butterfly Concepts آمریکا با تاییدیه FDA',
   socialLinks: {
-    instagram: 'https://www.instagram.com/toyooranco/',
-    telegram: 'https://t.me/toyooranco',
-    linkedin: 'https://www.linkedin.com/company/toyooranco',
-    rubika: 'https://rubika.ir/toyooranco',
-    aparat: 'https://www.aparat.com/toyooranco',
-    youtube: 'http://www.youtube.com/@Toyooranco',
-    whatsapp: '',
-    bale: '',
-    eitaa: '',
+    instagram: 'https://instagram.com/toyooran',
+    telegram: 'https://t.me/toyooran',
+    whatsapp: 'https://wa.me/989151126258',
+    linkedin: 'https://linkedin.com/company/toyooran',
+    bale: 'https://ble.ir/toyooran',
+    eitaa: 'https://eitaa.com/toyooran',
+    rubika: 'https://rubika.ir/toyooran',
   },
   locations: [
     {
@@ -54,9 +52,9 @@ export const COMPANY_INFO = {
     },
     {
       id: 'branch-tehran',
-      title: 'دفتر بازرگانی گرگان',
+      title: 'دفتر نمایندگی تهران',
       type: 'branch',
-      address: 'گرگان، میدان مفتح، ابتدای خیابان جمهوری، کارخانه نوآوری',
+      address: 'تهران، میدان ونک، خیابان ولیعصر، برج نگار، طبقه ۱۰',
       mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3238.924843187216!2d51.40871141525946!3d35.75266738017772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e068b55555555%3A0x8e5e6b0f98cd3a21!2sVanak%20Square!5e0!3m2!1sen!2sus!4v1689234567890!5m2!1sen!2sus'
     }
   ]
@@ -67,91 +65,55 @@ export const CATEGORIES_DATA = [
     id: 'heating',
     title: 'سیستم گرمایش مرغداری',
     icon: 'Thermometer',
-    productCount: 37,
-    image: "/images/machine-1.jpg",
-    badge: "جدید",
-    titleEn: "Heating",
-    description: "انواع هیترهای گازی، گازوئیلی، برقی و کوره‌های هوای گرم"
+    productCount: 37, image: "/images/machine-1.jpg", badge: "جدید", titleEn: "Heating", description: "سیستم‌های گرمایشی"
   },
   {
     id: 'ventilation',
     title: 'تهویه مرغداری',
     icon: 'Fan',
-    productCount: 23,
-    image: "/images/poultry-1.jpg",
-    badge: "",
-    titleEn: "Ventilation",
-    description: "هواکش‌های صنعتی ۱۴۰ و ۱۰۰، فن‌های سیرکوله و آکسیال"
+    productCount: 23, image: "/images/poultry-1.jpg", badge: "", titleEn: "Ventilation", description: "تهویه مطبوع"
   },
   {
     id: 'drinking',
     title: 'آبخوری مرغداری',
     icon: 'Droplets',
-    productCount: 22,
-    image: "/images/equipment-1.jpg",
-    badge: "",
-    titleEn: "Drinking",
-    description: "سیستم آبخوری نیپل تمام استیل، پمپ دوزاترون و اتصالات"
+    productCount: 22, image: "/images/equipment-1.jpg", badge: "", titleEn: "Drinking", description: "سیستم‌های آبخوری"
   },
   {
     id: 'cooling',
     title: 'سیستم سرمایش مرغداری',
     icon: 'Snowflake',
-    productCount: 11,
-    image: "/images/machine-1.jpg",
-    badge: "",
-    titleEn: "Cooling",
-    description: "کولرهای پلیمری سلولزی، پدهای خنک‌کننده و مه‌پاش"
+    productCount: 11, image: "/images/machine-1.jpg", badge: "", titleEn: "Cooling", description: "سرمایش"
   },
   {
     id: 'inlet',
     title: 'اینلت',
     icon: 'Wind',
-    productCount: 8,
-    image: "/images/poultry-1.jpg",
-    badge: "",
-    titleEn: "Inlet",
-    description: "پنجره‌های اینلت هوشمند، بادشکن و شاترهای ورودی هوا"
+    productCount: 8, image: "/images/poultry-1.jpg", badge: "", titleEn: "Inlet", description: "اینلت"
   },
   {
     id: 'feeding',
     title: 'بشقاب دانخوری',
     icon: 'Wheat',
-    productCount: 4,
-    image: "/images/equipment-1.jpg",
-    badge: "",
-    titleEn: "Feeding",
-    description: "بشقاب‌های دانخوری چیکن پلاس، کوناوی و سیستم‌های اتوماسیون"
+    productCount: 4, image: "/images/equipment-1.jpg", badge: "", titleEn: "Feeding", description: "دانخوری"
   },
   {
     id: 'cage',
     title: 'قفس مرغداری',
     icon: 'LayoutGrid',
-    productCount: 4,
-    image: "/images/equipment-1.jpg",
-    badge: "",
-    titleEn: "Cage",
-    description: "قفس‌های باتری تخمگذار، گوشتی، پولت و آشیانه اتوماتیک"
+    productCount: 4, image: "/images/equipment-1.jpg", badge: "", titleEn: "Feeding", description: "دانخوری"
   },
   {
     id: 'silo',
     title: 'سیلو و انتقال دان',
     icon: 'Database',
-    productCount: 3,
-    image: "/images/machine-1.jpg",
-    badge: "",
-    titleEn: "Silo",
-    description: "سیلوهای ذخیره دان، خطوط اوگر و آسیاب میکسر"
+    productCount: 3, image: "/images/machine-1.jpg", badge: "", titleEn: "Silo", description: "سیلو"
   },
   {
     id: 'other',
-    title: 'سایر تجهیزات',
+    title: 'سایر',
     icon: 'MoreHorizontal',
-    productCount: 1,
-    image: "/images/equipment-1.jpg",
-    badge: "",
-    titleEn: "Other",
-    description: "سایر ادوات، اتوماسیون و ماشین‌آلات تخصصی"
+    productCount: 1, image: "/images/equipment-1.jpg", badge: "", titleEn: "Other", description: "سایر"
   }
 ];
 
@@ -1348,8 +1310,8 @@ export const TESTIMONIALS_AND_PROOF = [
 
 export const DEFAULT_HERO_CMS = {
   title: 'طیوران صنعت پویا',
-  subtitle: 'طراح، مجری و مشاور توسعه و بهره‌برداری پروژه‌های صنعت دام، طیور و آبزیان',
-  pillText: 'با نیم قرن تجربه و بیش از ۲۰۰ پروژه ملی و بین‌المللی',
+  subtitle: 'توسعه، تجهیز و هوشمندسازی کارخانجات خوراک دام و طیور با بالاترین استانداردهای مهندسی روز دنیا.',
+  pillText: 'پیشگام در طراحی سالن و تجهیزات مدرن مرغداری',
   ctaPrimaryText: 'محصولات و تجهیزات',
   ctaSecondaryText: 'تماس با ما',
   backgroundImage: '/images/hero-1.jpg'
@@ -1381,6 +1343,7 @@ export const INITIAL_QUOTES = [
       companyName: 'مزرعه پرورشی طبرستان',
       fullName: 'مهندس سعید میرزایی',
       phoneNumber: '09112255880',
+      email: 'mirzaei@farm.ir',
       additionalNotes: 'نیاز به برآورد قیمت خط کامل دانخوری بشقابی با موتور گیربکس اروپایی داریم. لطفا استعلام قیمت رسمی ارسال فرمایید.',
       hasAttachment: false,
     },
@@ -1399,6 +1362,7 @@ export const INITIAL_QUOTES = [
       companyName: 'کارخانه خوراک شرق نوین',
       fullName: 'دکتر علیرضا کاظمی',
       phoneNumber: '09153184490',
+      email: 'kazemi@feedmill.com',
       additionalNotes: 'طرح توسعه کارخانه خوراک داریم و مایل به استعلام دای و رولر ۵۰۸ به همراه کاندیشنر بخار دوجداره هستیم.',
       hasAttachment: true,
     },

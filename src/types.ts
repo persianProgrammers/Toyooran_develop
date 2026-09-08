@@ -1,3 +1,4 @@
+// UI Sync triggered
 export type PageSection = 'home' | 'projects' | 'products' | 'services' | 'knowledge' | 'about' | 'contact' | 'magazine-article' | 'rnd';
 
 export type ProductCategory = 

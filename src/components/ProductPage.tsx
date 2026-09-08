@@ -37,8 +37,8 @@ export const ProductPage: React.FC = () => {
         <div className="bg-white rounded-[3rem] shadow-xl border border-slate-200 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* 1. عکس محصول */}
-            <div className="bg-slate-100 p-8 lg:p-12 flex items-center justify-center border-b lg:border-b-0 lg:border-l border-slate-200">
-              <div className="relative w-full aspect-square max-w-lg rounded-3xl overflow-hidden shadow-sm bg-white border border-slate-200">
+            <div className="bg-slate-100 p-8 lg:p-12 flex flex-col items-center justify-center border-b lg:border-b-0 lg:border-l border-slate-200">
+              <div className="relative w-full aspect-square max-w-lg rounded-3xl overflow-hidden shadow-sm bg-white border border-slate-200 mb-6">
                 <LazyImage
                   src={product.image}
                   alt={product.name}
@@ -46,6 +46,20 @@ export const ProductPage: React.FC = () => {
                   imgClassName="w-full h-full object-cover mix-blend-multiply"
                 />
               </div>
+              {product.gallery && product.gallery.length > 1 && (
+                <div className="flex gap-3 overflow-x-auto w-full max-w-lg pb-2 custom-scrollbar">
+                  {product.gallery.map((img, idx) => (
+                    <div key={idx} className="w-20 h-20 shrink-0 rounded-xl overflow-hidden border-2 border-slate-200 bg-white cursor-pointer hover:border-[#003F86] transition-colors">
+                      <LazyImage
+                        src={img}
+                        alt={`${product.name} - ${idx + 1}`}
+                        className="w-full h-full"
+                        imgClassName="w-full h-full object-cover mix-blend-multiply"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Product Info */}
