@@ -32,7 +32,7 @@ export const ScrollProgress: React.FC = () => {
       title="بازگشت به بالا"
     >
       {/* Background Glass */}
-      <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-xl rounded-full border border-white/10 shadow-2xl group-hover:shadow-amber-500/40 transition-all duration-300 group-hover:scale-110" />
+      <div className="absolute inset-0 bg-slate-900/95  rounded-full border border-white/10 shadow-2xl group-hover:shadow-amber-500/40 transition-all duration-300 group-hover:scale-110" />
       
       {/* SVG Progress Ring */}
       <svg width="64" height="64" className="transform -rotate-90 relative z-10">

@@ -68,7 +68,7 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({ onViewPublicSite }) =>
           </button>
 
           {/* User Profile Tag */}
-          <div className="hidden lg:flex items-center gap-2 bg-slate-950/70 border border-slate-800 px-3 py-1.5 rounded-xl">
+          <div className="hidden lg:flex items-center gap-2 bg-slate-950/85 border border-slate-800 px-3 py-1.5 rounded-xl">
             <UserCheck className="w-4 h-4 text-emerald-400" />
             <div className="text-right">
               <span className="text-xs font-bold text-slate-200 block">

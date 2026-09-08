@@ -13,31 +13,36 @@ import {
   Building
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 interface AdminLoginProps {
   onBackToSite: () => void;
 }
 
 export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToSite }) => {
-  const { login } = useData();
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('admin123');
+  const { login, verifyMfa } = useData();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [mfaRequired, setMfaRequired] = useState(false);
+  const [mfaCode, setMfaCode] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
-
-    setTimeout(() => {
-      const result = login(username, password);
-      if (!result.success) {
-        setError(result.error || 'اطلاعات ورود نامعتبر است.');
-        setIsLoading(false);
-      }
-    }, 400);
+    if (mfaRequired) {
+      const result = await verifyMfa(mfaCode);
+      if (!result.success) setError(result.error || 'کد MFA نامعتبر است.');
+      setIsLoading(false);
+      return;
+    }
+    const result = await login(username, password, turnstileToken);
+    if (result.mfaRequired) { setMfaRequired(true); setError('کد برنامه Authenticator را وارد کنید.'); setIsLoading(false); return; }
+    if (!result.success) { setError(result.error || 'اطلاعات ورود نامعتبر است.'); setIsLoading(false); }
   };
 
   const handleQuickFill = (user: string, pass: string) => {
@@ -60,7 +65,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToSite }) => {
       <div className="absolute top-6 right-6 z-20">
         <button
           onClick={onBackToSite}
-          className="flex items-center gap-2 text-xs text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 backdrop-blur-md px-4 py-2 rounded-xl border border-slate-700/60 transition-all shadow-sm"
+          className="flex items-center gap-2 text-xs text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80  px-4 py-2 rounded-xl border border-slate-700/60 transition-all shadow-sm"
         >
           <ArrowRight className="w-4 h-4 text-amber-400" />
           <span>بازگشت به سایت عمومی</span>
@@ -87,7 +92,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToSite }) => {
         </div>
 
         {/* Login Box */}
-        <div className="bg-slate-900/90 backdrop-blur-xl border border-slate-700/70 rounded-3xl p-6 sm:p-8 shadow-2xl relative">
+        <div className="bg-slate-900/90  border border-slate-700/70 rounded-3xl p-6 sm:p-8 shadow-2xl relative">
           
           <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
             <div className="flex items-center gap-2">
@@ -107,7 +112,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToSite }) => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
+            {!mfaRequired && <div>
               <label className="block text-xs font-bold text-slate-300 mb-1.5">
                 نام کاربری مدیر
               </label>
@@ -122,9 +127,9 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToSite }) => {
                 />
                 <User className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
               </div>
-            </div>
+            </div>}
 
-            <div>
+            {!mfaRequired && <div>
               <label className="block text-xs font-bold text-slate-300 mb-1.5">
                 کلمه عبور امنیتی
               </label>
@@ -145,7 +150,9 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToSite }) => {
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
-            </div>
+            </div>}
+
+            {mfaRequired ? <div><label className="block text-xs font-bold text-slate-300 mb-1.5">کد شش‌رقمی MFA</label><input inputMode="numeric" pattern="[0-9]{6}" maxLength={6} value={mfaCode} onChange={(e) => setMfaCode(e.target.value)} required className="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white" /></div> : (import.meta.env.VITE_TURNSTILE_SITE_KEY && import.meta.env.VITE_TURNSTILE_SITE_KEY !== 'AI_STUDIO_PREVIEW_DISABLED' ? <Turnstile siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} onSuccess={setTurnstileToken} onExpire={() => setTurnstileToken('')} /> : <p className="text-xs text-amber-300">CAPTCHA در Preview غیرفعال است.</p>)}
 
             <button
               type="submit"
@@ -163,31 +170,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToSite }) => {
             </button>
           </form>
 
-          {/* Quick Demo Credentials Assistant */}
-          <div className="mt-6 pt-5 border-t border-slate-800/80">
-            <p className="text-[11px] text-slate-400 font-medium mb-2.5 flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>دسترسی سریع پیش‌فرض سیستم:</span>
-            </p>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => handleQuickFill('admin', 'admin123')}
-                className="text-right bg-slate-800/60 hover:bg-slate-800 p-2.5 rounded-xl border border-slate-700/50 transition-colors group"
-              >
-                <div className="text-[11px] font-bold text-white group-hover:text-amber-300">مدیر ارشد (admin)</div>
-                <div className="text-[10px] text-slate-400 font-mono">admin123</div>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickFill('toyooran', 'admin123')}
-                className="text-right bg-slate-800/60 hover:bg-slate-800 p-2.5 rounded-xl border border-slate-700/50 transition-colors group"
-              >
-                <div className="text-[11px] font-bold text-white group-hover:text-amber-300">مدیر فروش و فنی</div>
-                <div className="text-[10px] text-slate-400 font-mono">admin123</div>
-              </button>
-            </div>
-          </div>
+          <p className="mt-6 text-center text-[11px] text-slate-500">ورود فقط با نشست امن backend و CAPTCHA معتبر امکان‌پذیر است.</p>
 
         </div>
 

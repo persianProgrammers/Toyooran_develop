@@ -61,9 +61,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true); // Default true for instant preview
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('toyooran1403');
+  const [isAuthenticated] = useState(false);
   const [activeTab, setActiveTab] = useState<'dashboard' | 'quotes' | 'consultations' | 'products' | 'ai-settings'>('dashboard');
 
   const [quotes, setQuotes] = useState<QuoteItem[]>([]);
@@ -150,7 +148,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-md animate-in fade-in duration-200 font-['Vazirmatn',sans-serif]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85  animate-in fade-in duration-200 font-['Estedad',sans-serif]">
       
       <div className="bg-white border border-slate-200 rounded-3xl w-full max-w-6xl h-[92vh] max-h-[820px] shadow-2xl flex flex-col overflow-hidden relative">
         
@@ -514,7 +512,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
                     <div key={prod.id} className="bg-white p-4 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
                       <div>
                         <div className="h-32 rounded-xl overflow-hidden mb-3 bg-slate-100">
-                          <img src={prod.image} alt={prod.name} className="w-full h-full object-cover" />
+                          <img src={prod.image} alt={prod.name} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.src="/images/product-placeholder.svg"; }} />
                         </div>
                         <span className="text-[10px] text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded-full">
                           {prod.categoryTitle}

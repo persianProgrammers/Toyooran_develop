@@ -180,7 +180,7 @@ export const ProjectsTab: React.FC = () => {
             <div className="relative h-44">
               <img src={p.image} alt={p.title} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-              <span className="absolute top-3 right-3 bg-[#003F86]/90 backdrop-blur-md text-amber-300 border border-amber-400/40 text-[10px] font-bold px-2.5 py-1 rounded-full">
+              <span className="absolute top-3 right-3 bg-[#003F86]/90  text-amber-300 border border-amber-400/40 text-[10px] font-bold px-2.5 py-1 rounded-full">
                 {p.typeTitle}
               </span>
               <span className="absolute bottom-3 right-3 text-xs font-black text-white">
@@ -237,7 +237,7 @@ export const ProjectsTab: React.FC = () => {
 
       {/* Delete Modal */}
       {deleteConfirmId && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-slate-950/80  flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-sm w-full space-y-4 shadow-2xl">
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
               <AlertCircle className="w-5 h-5 text-rose-400" />
@@ -269,7 +269,7 @@ export const ProjectsTab: React.FC = () => {
 
       {/* Create / Edit Modal */}
       {(isCreating || editingProject) && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-slate-950/80  flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 max-w-2xl w-full my-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
             
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">

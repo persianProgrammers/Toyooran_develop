@@ -53,13 +53,13 @@ export const MagazineArticle: React.FC<MagazineArticleProps> = ({ article, onBac
           <div className="flex justify-between items-center mb-8">
             <button 
               onClick={onBack}
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-sm"
+              className="flex items-center gap-2 bg-white/10 hover:bg-white/20  border border-white/20 text-white px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-sm"
             >
               <ArrowRight className="w-5 h-5" />
               <span>بازگشت به مجله</span>
             </button>
             
-            <button className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white p-2.5 rounded-full transition-all shadow-sm">
+            <button className="flex items-center gap-2 bg-white/10 hover:bg-white/20  border border-white/20 text-white p-2.5 rounded-full transition-all shadow-sm">
               <Share2 className="w-5 h-5" />
             </button>
           </div>
@@ -92,7 +92,7 @@ export const MagazineArticle: React.FC<MagazineArticleProps> = ({ article, onBac
 
       {/* Main Content Area */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-30">
-        <div className="bg-white/95 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-slate-200/50 border border-slate-200/80 p-6 md:p-12 lg:p-16">
+        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-200 p-6 md:p-12 lg:p-16">
           
           {/* Article Text */}
           <div className="prose prose-lg prose-slate max-w-none text-slate-700 leading-loose">

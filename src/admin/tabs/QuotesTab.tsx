@@ -186,7 +186,7 @@ export const QuotesTab: React.FC = () => {
 
       {/* Delete Confirmation */}
       {deleteConfirmId && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-slate-950/80  flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-sm w-full space-y-4 shadow-2xl">
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
               <AlertCircle className="w-5 h-5 text-rose-400" />
@@ -216,7 +216,7 @@ export const QuotesTab: React.FC = () => {
 
       {/* Detail & Action Modal */}
       {viewingQuote && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-slate-950/80  flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 max-w-2xl w-full my-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
             
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">
@@ -236,7 +236,7 @@ export const QuotesTab: React.FC = () => {
             </div>
 
             {/* Applicant Information Card */}
-            <div className="bg-slate-950/70 p-4 rounded-3xl border border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div className="bg-slate-950/85 p-4 rounded-3xl border border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div>
                 <span className="text-slate-400 block text-[11px]">نام و نام خانوادگی متقاضی:</span>
                 <span className="text-white font-bold text-sm block mt-0.5">{viewingQuote.formData.fullName}</span>
@@ -270,7 +270,7 @@ export const QuotesTab: React.FC = () => {
 
             {/* Equipment Needed Checklist */}
             {viewingQuote.formData.equipmentNeeded && viewingQuote.formData.equipmentNeeded.length > 0 && (
-              <div className="bg-slate-950/70 p-4 rounded-3xl border border-slate-800 space-y-2">
+              <div className="bg-slate-950/85 p-4 rounded-3xl border border-slate-800 space-y-2">
                 <span className="text-xs font-bold text-amber-400 block">تجهیزات و خدمات مورد نیاز متقاضی:</span>
                 <div className="flex flex-wrap gap-2">
                   {viewingQuote.formData.equipmentNeeded.map((eq, eIdx) => (
@@ -284,7 +284,7 @@ export const QuotesTab: React.FC = () => {
 
             {/* Additional Note */}
             {viewingQuote.formData.additionalNotes && (
-              <div className="bg-slate-950/70 p-4 rounded-3xl border border-slate-800 space-y-1">
+              <div className="bg-slate-950/85 p-4 rounded-3xl border border-slate-800 space-y-1">
                 <span className="text-xs font-bold text-slate-400 block">توضیحات تکمیلی مشتری:</span>
                 <p className="text-xs text-slate-200 leading-relaxed">{viewingQuote.formData.additionalNotes}</p>
               </div>

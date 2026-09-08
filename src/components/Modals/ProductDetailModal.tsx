@@ -38,14 +38,14 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/85  flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
       <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 relative">
         
         {/* Modal Header */}
-        <div className="sticky top-0 bg-white/95 backdrop-blur-md border-b border-slate-200 p-4 sm:p-6 flex items-center justify-between z-20">
+        <div className="sticky top-0 bg-white/95  border-b border-slate-200 p-4 sm:p-6 flex items-center justify-between z-20">
           <div className="flex items-center gap-3">
             <span className="bg-[#003F86] text-white text-xs font-bold px-3 py-1 rounded-lg">
-              {product.categoryTitle}
+              {product.categoryTitle.replace(/ مرغداری$/, '')}
             </span>
             <span className="font-mono text-xs font-black bg-amber-400 text-slate-950 px-2.5 py-0.5 rounded-lg">
               {product.code}

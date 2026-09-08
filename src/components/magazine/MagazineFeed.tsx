@@ -59,9 +59,9 @@ export const MagazineFeed: React.FC<MagazineFeedProps> = ({ articles, onSelectAr
     <div className="min-h-screen relative overflow-hidden z-0" id="magazine-feed">
       {/* Dynamic Vibrant Mesh Gradient Background */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-gradient-to-br from-blue-400/40 to-purple-500/30 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-gradient-to-br from-amber-400/40 to-orange-500/30 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '10s' }} />
-        <div className="absolute top-[30%] left-[30%] w-[40vw] h-[40vw] bg-gradient-to-br from-emerald-400/30 to-teal-500/30 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '12s' }} />
+        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[radial-gradient(circle_at_center,_rgba(96,165,250,0.15)_0%,_transparent_60%)]" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[radial-gradient(circle_at_center,_rgba(251,191,36,0.15)_0%,_transparent_60%)]" style={{ animationDuration: '10s' }} />
+        <div className="absolute top-[30%] left-[30%] w-[40vw] h-[40vw] bg-[radial-gradient(circle_at_center,_rgba(52,211,153,0.12)_0%,_transparent_60%)]" style={{ animationDuration: '12s' }} />
       </div>
       
       <div className="w-full min-h-[100dvh] flex flex-col justify-center relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 z-10">
@@ -72,7 +72,7 @@ export const MagazineFeed: React.FC<MagazineFeedProps> = ({ articles, onSelectAr
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur border border-white/50 shadow-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/95  border border-white/50 shadow-sm mb-6">
               <Sparkles className="w-5 h-5 text-amber-500" />
               <span className="text-sm font-bold text-slate-800">مجله تخصصی طیوران صنعت پویا</span>
             </div>
@@ -95,10 +95,10 @@ export const MagazineFeed: React.FC<MagazineFeedProps> = ({ articles, onSelectAr
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-6 py-2.5 rounded-2xl text-sm font-bold transition-all duration-300 backdrop-blur-xl border ${
+              className={`px-6 py-2.5 rounded-2xl text-sm font-bold transition-all duration-300  border ${
                 activeCategory === cat.id
                   ? 'bg-gradient-to-r from-[#003F86] to-blue-700 text-white border-blue-600 shadow-xl shadow-blue-900/20 scale-105'
-                  : 'bg-white/60 text-slate-700 border-white/80 hover:bg-white hover:border-white hover:shadow-lg'
+                  : 'bg-white/95 text-slate-700 border-white/80 hover:bg-white hover:border-white hover:shadow-lg'
               }`}
             >
               {cat.label}
@@ -121,7 +121,7 @@ export const MagazineFeed: React.FC<MagazineFeedProps> = ({ articles, onSelectAr
               {/* Highlight glow behind featured */}
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-amber-500/20 rounded-[2.5rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10" />
               
-              <div className="relative rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-2xl shadow-2xl shadow-slate-300/50 border border-white flex flex-col md:flex-row h-auto md:min-h-[28rem] group-hover:border-white transition-all duration-500">
+              <div className="relative rounded-[2rem] overflow-hidden bg-white transform-gpu will-change-transform shadow-sm hover:shadow-lg border border-slate-100 flex flex-col md:flex-row h-auto md:min-h-[28rem] transition-all duration-300">
                 {/* Image Side */}
                 <div className="w-full md:w-1/2 h-64 md:h-auto relative overflow-hidden shrink-0">
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent z-10 pointer-events-none" />
@@ -132,7 +132,7 @@ export const MagazineFeed: React.FC<MagazineFeedProps> = ({ articles, onSelectAr
                     imgClassName="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute top-6 right-6 z-20">
-                     <span className="bg-white/20 backdrop-blur-md text-white border border-white/30 text-xs font-bold px-4 py-1.5 rounded-full shadow-sm">
+                     <span className="bg-white/20  text-white border border-white/30 text-xs font-bold px-4 py-1.5 rounded-full shadow-sm">
                        {featuredArticle.categoryLabel}
                      </span>
                   </div>
@@ -175,7 +175,7 @@ export const MagazineFeed: React.FC<MagazineFeedProps> = ({ articles, onSelectAr
                 transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
                 key={article.id}
                 onClick={() => onSelectArticle(article)}
-                className="relative bg-white/70 backdrop-blur-2xl rounded-[2rem] overflow-hidden border border-white shadow-xl shadow-slate-300/40 hover:shadow-2xl hover:shadow-[#003F86]/20 hover:-translate-y-2 transition-all duration-500 group cursor-pointer flex flex-col h-full origin-center"
+                className="relative bg-white transform-gpu will-change-transform rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col h-full origin-center"
               >
                 {/* Accent Top Border */}
                 <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-500 to-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-30" />
@@ -189,7 +189,7 @@ export const MagazineFeed: React.FC<MagazineFeedProps> = ({ articles, onSelectAr
                     imgClassName="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute bottom-4 right-4 z-20">
-                     <span className="bg-white/20 backdrop-blur-md text-white border border-white/30 text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm">
+                     <span className="bg-white/20  text-white border border-white/30 text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm">
                        {article.categoryLabel}
                      </span>
                   </div>

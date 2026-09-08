@@ -1,5 +1,7 @@
-import React from 'react';
+import React from "react";
+import { AparatIcon } from "./AparatIcon";
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { 
   Phone, 
   Mail, 
@@ -8,6 +10,9 @@ import {
   Send, 
   MessageCircle, 
   Linkedin,
+  Youtube,
+  Tv,
+  Grid,
   ArrowLeft,
   ChevronLeft
 } from 'lucide-react';
@@ -34,7 +39,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory, on
 
   
 
-  const mainPhone = companyInfo?.phoneNumbers?.[0] || '۰۲۱-۱۲۳۴۵۶۷۸';
+  const mainPhone = '09151126258';
   const email = companyInfo?.email || 'info@pooyapoultry.com';
   const hq = companyInfo?.locations?.find(loc => loc.type === 'headquarter');
 
@@ -44,8 +49,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory, on
     <footer className="relative w-full bg-[#020b18] pt-20 pb-6 overflow-hidden border-t border-white/5 z-20">
       
       {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-[120px] translate-x-1/3 translate-y-1/3 pointer-events-none" />
+      <div className="absolute top-0 left-0 w-[700px] h-[700px] bg-[radial-gradient(circle_at_center,_rgba(59,130,246,0.05)_0%,_transparent_70%)] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_rgba(245,158,11,0.05)_0%,_transparent_70%)] translate-x-1/3 translate-y-1/3 pointer-events-none" />
       <div className="absolute inset-0 bg-[url('/images/cubes.png')] opacity-[0.02] mix-blend-overlay pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -57,7 +62,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory, on
           <div className="lg:col-span-4 flex flex-col">
             <div className="flex items-center gap-3 mb-6">
                <div className="h-14 flex items-center justify-center">
-                  <img src="/images/logo-full.png" alt="Logo" className="h-full w-auto object-contain " />
+                  <img src="/images/logo-wide.png" alt="Logo" className="h-full w-auto object-contain" />
                </div>
                <div>
                   <h3 className="text-xl font-black text-white tracking-tight">{companyInfo?.name}</h3>
@@ -65,31 +70,89 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory, on
                </div>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed font-medium mb-8 max-w-sm">
-              طیوران صنعت پویا، با بیش از دو دهه تجربه، پیشگام در طراحی، تولید و اجرای مدرن‌ترین تجهیزات پرورشی و کارخانجات خوراک دام و طیور در خاورمیانه است.
+              شرکت طیوران صنعت پویا، با بیش از 50 سال سابقه، پیشگام در طراحی، تولید و اجرای تجهیزات پرورشی و کارخانجات خوراک دام و طیور در خاورمیانه است.
             </p>
             
             {/* Social Links */}
             <div className="flex items-center gap-3">
-              {companyInfo?.socialLinks?.instagram && (
-                <a href={companyInfo?.socialLinks.instagram} className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-pink-500 hover:to-purple-500 hover:border-transparent transition-all duration-300 group">
-                  <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                </a>
-              )}
-              {companyInfo?.socialLinks?.telegram && (
-                <a href={companyInfo?.socialLinks.telegram} className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#0088cc] hover:border-transparent transition-all duration-300 group">
-                  <Send className="w-4 h-4 ml-0.5 group-hover:scale-110 transition-transform" />
-                </a>
-              )}
-              {companyInfo?.socialLinks?.whatsapp && (
-                <a href={companyInfo?.socialLinks.whatsapp} className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#25D366] hover:border-transparent transition-all duration-300 group">
-                  <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                </a>
-              )}
-              {companyInfo?.socialLinks?.linkedin && (
-                <a href={companyInfo?.socialLinks.linkedin} className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#0a66c2] hover:border-transparent transition-all duration-300 group">
-                  <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                </a>
-              )}
+              <a 
+                href={companyInfo?.socialLinks?.instagram || '#'} 
+                onClick={(e) => {
+                  if (!companyInfo?.socialLinks?.instagram) {
+                    e.preventDefault();
+                    toast('به زودی صفحه اینستاگرام ما راه‌اندازی می‌شود', { icon: '✨' });
+                  }
+                }}
+                target="_blank"
+                rel="noreferrer"
+                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-pink-500 hover:to-purple-500 hover:border-transparent transition-all duration-300 group">
+                <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              </a>
+              <a 
+                href={companyInfo?.socialLinks?.telegram || '#'} 
+                onClick={(e) => {
+                  if (!companyInfo?.socialLinks?.telegram) {
+                    e.preventDefault();
+                    toast('به زودی کانال تلگرام ما راه‌اندازی می‌شود', { icon: '✨' });
+                  }
+                }}
+                target="_blank"
+                rel="noreferrer"
+                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#0088cc] hover:border-transparent transition-all duration-300 group">
+                <Send className="w-4 h-4 ml-0.5 group-hover:scale-110 transition-transform" />
+              </a>
+              <a 
+                href={companyInfo?.socialLinks?.aparat || '#'} 
+                onClick={(e) => {
+                  if (!companyInfo?.socialLinks?.aparat) {
+                    e.preventDefault();
+                    toast('به زودی کانال آپارات ما راه‌اندازی می‌شود', { icon: '✨' });
+                  }
+                }}
+                target="_blank"
+                rel="noreferrer"
+                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#263238] hover:border-transparent transition-all duration-300 group">
+                <AparatIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              </a>
+              <a 
+                href={companyInfo?.socialLinks?.rubika || '#'} 
+                onClick={(e) => {
+                  if (!companyInfo?.socialLinks?.rubika) {
+                    e.preventDefault();
+                    toast('به زودی کانال روبیکا ما راه‌اندازی می‌شود', { icon: '✨' });
+                  }
+                }}
+                target="_blank"
+                rel="noreferrer"
+                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-gradient-to-r hover:from-[#ff7300] hover:to-[#7600b5] hover:border-transparent transition-all duration-300 group">
+                <Grid className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              </a>
+              <a 
+                href={companyInfo?.socialLinks?.youtube || '#'} 
+                onClick={(e) => {
+                  if (!companyInfo?.socialLinks?.youtube) {
+                    e.preventDefault();
+                    toast('به زودی کانال یوتیوب ما راه‌اندازی می‌شود', { icon: '✨' });
+                  }
+                }}
+                target="_blank"
+                rel="noreferrer"
+                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#ff0000] hover:border-transparent transition-all duration-300 group">
+                <Youtube className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              </a>
+              <a 
+                href={companyInfo?.socialLinks?.linkedin || '#'} 
+                onClick={(e) => {
+                  if (!companyInfo?.socialLinks?.linkedin) {
+                    e.preventDefault();
+                    toast('به زودی صفحه لینکدین ما راه‌اندازی می‌شود', { icon: '✨' });
+                  }
+                }}
+                target="_blank"
+                rel="noreferrer"
+                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#0a66c2] hover:border-transparent transition-all duration-300 group">
+                <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              </a>
             </div>
           </div>
 
@@ -159,20 +222,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory, on
                 </div>
                 <div>
                   <span className="block text-[10px] text-slate-500 font-bold mb-1">تلفن مشاوره و فروش</span>
-                  <a href={`tel:${mainPhone}`} className="text-slate-300 hover:text-white font-medium text-sm transition-colors" dir="ltr">{mainPhone}</a>
+                  <a href="tel:09151126258" className="text-slate-300 hover:text-white font-medium text-sm transition-colors" dir="ltr">۰۹۱۵۱۱۲۶۲۵۸</a>
                 </div>
               </div>
               
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-1">
-                  <Mail className="w-4 h-4 text-blue-400" />
-                </div>
-                <div>
-                  <span className="block text-[10px] text-slate-500 font-bold mb-1">پست الکترونیک</span>
-                  <a href={`mailto:${email}`} className="text-slate-300 hover:text-white font-medium text-sm transition-colors">{email}</a>
-                </div>
-              </div>
-
               {hq && (
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-1">
@@ -194,7 +247,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectCategory, on
 
         {/* Copyright & Credits */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-500">
-          <p>© {currentYear} تمامی حقوق برای <span className="text-slate-300">{companyInfo?.name}</span> محفوظ است.</p>
+          <p>
+            © {currentYear} تمامی حقوق این وب‌سایت متعلق به <span className="text-slate-300">{companyInfo?.name}</span> می‌باشد. طراحی و توسعه توسط <span className="text-slate-300">شرکت هزارتو</span>.
+          </p>
           <div className="flex items-center gap-4">
              <a href="#" className="hover:text-slate-300 transition-colors">قوانین و مقررات</a>
              <div className="w-1 h-1 rounded-full bg-slate-700" />

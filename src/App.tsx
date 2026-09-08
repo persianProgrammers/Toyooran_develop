@@ -1,6 +1,7 @@
 import { ProductPage } from './components/ProductPage';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { ScrollProgress } from './components/ScrollProgress';
@@ -24,6 +25,8 @@ import { FeaturedProjectsSection } from './components/FeaturedProjectsSection';
 import { MagazineFeed } from './components/magazine/MagazineFeed';
 import { MagazineArticle } from './components/magazine/MagazineArticle';
 import { AboutPage } from './components/AboutPage';
+import { RnDPage } from './components/RnDPage';
+import { CompactShowcase } from './components/CompactShowcase';
 import { ContactPage } from './components/ContactPage';
 import { AboutContactUnifiedSection } from './components/AboutContactUnifiedSection';
 import { Footer } from './components/Footer';
@@ -37,17 +40,15 @@ import { AiEngineerAssistantModal } from './components/AiEngineerAssistantModal'
 
 import { useParams } from 'react-router-dom';
 
+import { SEO } from "./components/SEO";
+
 const SEORoute = ({ title, description, children }: { title: string, description: string, children: React.ReactNode }) => {
-  useEffect(() => {
-    // We still update the title client-side for dynamic navigation, 
-    // but crawlers will see the server-injected one from server.ts!
-    document.title = title;
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', description);
-    }
-  }, [title, description]);
-  return <>{children}</>;
+  return (
+    <>
+      <SEO title={title} description={description} />
+      {children}
+    </>
+  );
 };
 
 // Component to scroll to top on route change
@@ -135,6 +136,7 @@ const MainAppInner: React.FC = () => {
     else if (section === 'projects') navigate('/projects');
     else if (section === 'knowledge') navigate('/magazine');
     else if (section === 'about') navigate('/about');
+    else if (section === 'rnd') navigate('/rnd');
     else if (section === 'contact') navigate('/contact');
   };
   
@@ -145,6 +147,7 @@ const MainAppInner: React.FC = () => {
                          location.pathname === '/projects' ? 'projects' : 
                          location.pathname.startsWith('/magazine') ? 'knowledge' : 
                          location.pathname === '/about' ? 'about' : 
+                         location.pathname === '/rnd' ? 'rnd' : 
                          location.pathname === '/contact' ? 'contact' : 'home';
 
   const handleSelectCategory = (cat: ProductCategory | 'all') => {
@@ -221,36 +224,50 @@ const MainAppInner: React.FC = () => {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={
-            <Hero
-              cmsHero={heroCms}
-              onNavigate={handleNavigateSection}
-              onSelectCategory={handleSelectCategory}
-              onOpenConsultation={() => handleOpenUnifiedConsultation()}
-              onOpenQuote={() => handleOpenUnifiedConsultation('استعلام قیمت و پیش‌فاکتور')}
-              onOpenAiAssistant={() => setIsAiAssistantOpen(true)}
-            >
-              <AboutContactUnifiedSection />
-            </Hero>
+            <SEORoute title="صفحه اصلی | Toyooran" description="طیوران صنعت پویا، پیشگام در طراحی، تولید و اجرای مدرن‌ترین تجهیزات پرورشی و کارخانجات خوراک دام و طیور در خاورمیانه.">
+              <Hero
+                cmsHero={heroCms}
+                onNavigate={handleNavigateSection}
+                onSelectCategory={handleSelectCategory}
+                onOpenConsultation={() => handleOpenUnifiedConsultation()}
+                onOpenQuote={() => handleOpenUnifiedConsultation('استعلام قیمت و پیش‌فاکتور')}
+                onOpenAiAssistant={() => setIsAiAssistantOpen(true)}
+              >
+                <CompactShowcase 
+                  products={products}
+                  articles={articles}
+                  onNavigate={handleNavigateSection}
+                  onSelectProduct={handleSelectProductById}
+                  onSelectArticle={(articleId) => navigate(`/magazine/${articleId}`)}
+                />
+                <AboutContactUnifiedSection />
+              </Hero>
+            </SEORoute>
           } />
           <Route path="/products/:productId" element={<ProductPage />} />
           <Route path="/products" element={
-            <ProductCatalogSection
-              products={products}
-              selectedCategory={selectedCategory}
-              onSelectCategory={handleSelectCategory}
-              onSelectProduct={handleSelectProduct}
-              onRequestQuoteForProduct={handleRequestQuoteForProduct}
-            />
+            <SEORoute title="محصولات | Toyooran" description="کاتالوگ جامع محصولات و تجهیزات مدرن مرغداری، اتوماسیون سالن‌های پرورشی و ماشین‌آلات کارخانجات خوراک طیوران صنعت پویا.">
+              <ProductCatalogSection
+                products={products}
+                selectedCategory={selectedCategory}
+                onSelectCategory={handleSelectCategory}
+                onSelectProduct={handleSelectProduct}
+                onRequestQuoteForProduct={handleRequestQuoteForProduct}
+              />
+            </SEORoute>
           } />
           <Route path="/services" element={
-            <ServicesSection
-              services={services}
-              onSelectService={setSelectedService}
-              onOpenConsultation={() => handleOpenUnifiedConsultation('سوله و سالن صنعتی')}
-            />
+            <SEORoute title="خدمات | Toyooran" description="خدمات تخصصی طیوران صنعت پویا شامل طراحی و ساخت سوله‌های صنعتی، راه‌اندازی کارخانجات خوراک دام و طیور و مشاوره تخصصی.">
+              <ServicesSection
+                services={services}
+                onSelectService={setSelectedService}
+                onSelectCategory={handleSelectCategory}
+                onOpenConsultation={() => handleOpenUnifiedConsultation('سوله و سالن صنعتی')}
+              />
+            </SEORoute>
           } />
           <Route path="/projects" element={
-            <SEORoute title="پروژه‌های ویژه مرغداری | طیوران صنعت پویا" description="نمونه کارهای اجرایی و پروژه‌های شاخص طیوران صنعت پویا در سطح کشور.">
+            <SEORoute title="پروژه‌های ویژه مرغداری | Toyooran" description="نمونه کارهای اجرایی و پروژه‌های شاخص طیوران صنعت پویا در سطح کشور.">
               <FeaturedProjectsSection
                 projects={projects}
                 onSelectProject={setSelectedProject}
@@ -259,7 +276,7 @@ const MainAppInner: React.FC = () => {
             </SEORoute>
           } />
           <Route path="/magazine" element={
-            <SEORoute title="مجله تخصصی و مقالات مرغداری | طیوران صنعت پویا" description="دانش‌نامه و مجله تخصصی صنعت مرغداری. مقالات آموزشی پرورش طیور، تجهیزات و جدیدترین اخبار.">
+            <SEORoute title="مجله تخصصی و مقالات مرغداری | Toyooran" description="دانش‌نامه و مجله تخصصی صنعت مرغداری. مقالات آموزشی پرورش طیور، تجهیزات و جدیدترین اخبار.">
               <MagazineFeed
                 articles={articles}
                 onSelectArticle={(article) => {
@@ -281,8 +298,13 @@ const MainAppInner: React.FC = () => {
               <AboutPage />
             </SEORoute>
           } />
+          <Route path="/rnd" element={
+            <SEORoute title="تحقیق و توسعه | شرکت طیوران صنعت پویا" description="واحد تحقیق و توسعه شرکت طیوران صنعت پویا.">
+              <RnDPage />
+            </SEORoute>
+          } />
           <Route path="/contact" element={
-            <SEORoute title="تماس با ما و مشاوره | طیوران صنعت پویا" description="ارتباط با کارشناسان فروش، پشتیبانی فنی و ثبت درخواست مشاوره برای راه‌اندازی و تجهیز مرغداری.">
+            <SEORoute title="تماس با ما و مشاوره | Toyooran" description="ارتباط با کارشناسان فروش، پشتیبانی فنی و ثبت درخواست مشاوره برای راه‌اندازی و تجهیز مرغداری.">
               <ContactPage 
                 initialSubject={consultationSubject}
                 initialProduct={consultationProduct}
@@ -350,6 +372,7 @@ export default function App() {
     <DataProvider>
       <BrowserRouter>
         <MainAppInner />
+        <Toaster position="bottom-center" toastOptions={{ style: { background: '#333', color: '#fff', borderRadius: '12px', fontFamily: 'Estedad, sans-serif' } }} />
       </BrowserRouter>
     </DataProvider>
   );

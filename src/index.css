@@ -1,3 +1,13 @@
+@import "@fontsource/estedad/300.css";
+@import "@fontsource/estedad/400.css";
+@import "@fontsource/estedad/500.css";
+@import "@fontsource/estedad/700.css";
+@import "@fontsource/estedad/900.css";
+
+@theme {
+  --font-sans: "Estedad", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 @import "tailwindcss";
 
 @layer utilities {
@@ -7,17 +17,6 @@
   .clip-hexagon-horizontal {
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
   }
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-html, body {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
 }
 
 /* Glassmorphism Classes */
@@ -41,32 +40,104 @@ html, body {
     radial-gradient(ellipse at 20% 80%, rgba(255, 195, 3, 0.04) 0%, transparent 50%);
 }
 
-/* Blueprint Grid Background - Moving Grid Effect */
+/* Blueprint Grid Background */
+
+.bg-blueprint, .bg-blueprint-light {
+  position: relative;
+  z-index: 0;
+}
+
 .bg-blueprint {
   background-color: #00224b;
+}
+
+.bg-blueprint::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
   background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 32px 32px;
-  animation: moveGridDark 20s linear infinite;
+}
+
+.bg-blueprint::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image: 
+    linear-gradient(rgba(56, 189, 248, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.15) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0;
+  animation: gridPulseDark 8s infinite alternate ease-in-out;
 }
 
 .bg-blueprint-light {
   background-color: #f8fafc;
+}
+
+.bg-blueprint-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
   background-image: 
     linear-gradient(rgba(0, 63, 134, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 63, 134, 0.04) 1px, transparent 1px);
   background-size: 24px 24px;
-  animation: moveGridLight 20s linear infinite;
 }
 
-@keyframes moveGridDark {
-  0% { background-position: 0px 0px; }
-  100% { background-position: 32px 32px; }
+.bg-blueprint-light::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image: 
+    linear-gradient(rgba(16, 185, 129, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0;
+  animation: gridPulseLight 8s infinite alternate ease-in-out;
 }
 
-@keyframes moveGridLight {
-  0% { background-position: 0px 0px; }
-  100% { background-position: 24px 24px; }
+@keyframes gridPulseDark {
+  0% { opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
 }
 
+@keyframes gridPulseLight {
+  0% { opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Ultra-Modern Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(251, 191, 36, 0.8);
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.2) transparent;
+}

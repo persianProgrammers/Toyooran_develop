@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
+import { LazyImage } from "./LazyImage";
 import { LazyHeroImage } from './LazyHeroImage';
 const heroPoultryImg = '/images/poultry-1.jpg';
 import { 
@@ -31,7 +32,7 @@ interface HeroProps {
   children?: React.ReactNode;
 }
 
-interface CircleCategoryCard {
+export interface CircleCategoryCard {
   id: ProductCategory;
   title: string;
   categoryEn: string;
@@ -42,6 +43,7 @@ interface CircleCategoryCard {
   badgeBg: string;
   badgeText: string;
   specs: string[];
+  bgImage?: string;
 }
 
 
@@ -103,7 +105,7 @@ const ThematicParticles = ({ id, isHovered }: { id: string, isHovered: boolean }
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: [0, 0.3, 0], scale: [0, 1, 0] }}
             transition={{ duration: p.duration, delay: p.delay, repeat: Infinity }}
-            className="absolute w-2 h-2 border border-emerald-400/50"
+            className="absolute w-2 h-2 border border-emerald-400/70"
             style={{ left: `${p.left}%`, top: `${p.top}%` }}
           />
         ))}
@@ -132,58 +134,61 @@ const ThematicParticles = ({ id, isHovered }: { id: string, isHovered: boolean }
 }
 
 
-const ServiceCard: React.FC<{ card: any, idx: number, onClick: () => void }> = ({ card, idx, onClick }) => {
+export const ServiceCard: React.FC<{ card: any, idx: number, onClick: () => void }> = ({ card, idx, onClick }) => {
   const Icon = card.icon;
   return (
     <div
       onClick={onClick}
-      className="relative group w-full h-[380px] sm:h-[420px] rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-800 hover:border-transparent transition-colors duration-500 cursor-pointer shadow-2xl"
+      className="relative group w-full h-[380px] sm:h-[420px] rounded-[2.5rem] overflow-hidden bg-[#001c3d] border border-blue-800/60 hover:border-blue-500/50 transition-colors duration-500 cursor-pointer shadow-2xl transform-gpu will-change-transform"
     >
       {/* 🌟 NEW HOVER EFFECT (Replaced the Flashlight/Conic Gradient) 🌟 */}
       {/* Soft animated neon glow around the card instead of flashlight */}
-      <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none blur-md" />
-      <div className="absolute -inset-[2px] rounded-[calc(2.5rem+2px)] bg-gradient-to-b from-transparent via-amber-500/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-700 -z-10" />
+      <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none " />
+      <div className="absolute -inset-[2px] rounded-[calc(2.5rem+2px)] bg-gradient-to-b from-transparent via-amber-500/20 to-transparent opacity-0 group-hover:opacity-100  transition-all duration-700 -z-10" />
 
       {/* Inner Card Surface */}
-      <div className="absolute inset-[2px] rounded-[calc(2.5rem-2px)] bg-gradient-to-b from-slate-900 to-[#020b18] z-10 overflow-hidden flex flex-col p-6 sm:p-8">
+      <div className="absolute inset-[2px] rounded-[calc(2.5rem-2px)] bg-[#001c3d] z-10 overflow-hidden flex flex-col p-6 sm:p-8">
+        
+        {/* Background Image */}
+        {card.bgImage && (
+          <div className="absolute inset-0 z-0 opacity-60 group-hover:opacity-85 transition-opacity duration-700 pointer-events-none">
+            <LazyImage src={card.bgImage} className="w-full h-full" imgClassName="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          </div>
+        )}
+
+        {/* Gradient Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#001c3d]/30 via-[#001c3d]/60 to-[#001c3d]/90 z-0 pointer-events-none" />
+
         {/* Ambient Blobs inside the card */}
-        <div className="absolute -top-20 -left-20 w-56 h-56 bg-[#003F86]/30 blur-[60px] rounded-full group-hover:bg-amber-500/20 transition-colors duration-700" />
-        <div className="absolute -bottom-20 -right-20 w-56 h-56 bg-amber-500/10 blur-[60px] rounded-full group-hover:bg-[#003F86]/30 transition-colors duration-700" />
+        <div className="absolute -top-20 -left-20 w-80 h-80 bg-[radial-gradient(circle_at_center,_rgba(0,63,134,0.25)_0%,_transparent_70%)] group-hover:bg-[radial-gradient(circle_at_center,_rgba(245,158,11,0.15)_0%,_transparent_70%)] transition-colors duration-700" />
+        <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[radial-gradient(circle_at_center,_rgba(245,158,11,0.08)_0%,_transparent_70%)] group-hover:bg-[radial-gradient(circle_at_center,_rgba(0,63,134,0.25)_0%,_transparent_70%)] transition-colors duration-700" />
         
         {/* Subtle Grid Texture */}
-        <div className="absolute inset-0 bg-[url('/images/cubes.png')] opacity-[0.03] group-hover:opacity-[0.08] mix-blend-overlay transition-opacity duration-700" />
         
         {/* Huge Number Graphic in Background */}
-        <div className="absolute -top-4 -right-4 text-[120px] font-black text-transparent [-webkit-text-stroke:2px_rgba(255,255,255,0.03)] group-hover:[-webkit-text-stroke:2px_rgba(251,191,36,0.15)] transition-all duration-700 pointer-events-none group-hover:scale-110 group-hover:-translate-x-4 group-hover:translate-y-4 origin-top-right">
+        <div className="absolute -top-4 -right-4 text-[120px] font-light [-webkit-text-stroke:0.5px_rgba(255,255,255,0.3)] group-hover:[-webkit-text-stroke:1px_rgba(251,191,36,0.6)] text-transparent group-hover:text-amber-500/10 transition-all duration-700 pointer-events-none group-hover:scale-110 group-hover:-translate-x-4 group-hover:translate-y-4 origin-top-right">
           0{idx + 1}
         </div>
         
-        {/* Top Badge */}
-        <div className="relative z-20 flex justify-end w-full">
-          <span className="inline-block px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] sm:text-xs font-bold text-slate-300 group-hover:border-amber-400/40 group-hover:text-amber-300 group-hover:bg-amber-400/10 transition-all duration-500 backdrop-blur-md shadow-lg">
-            {card.badge}
-          </span>
-        </div>
-        
         {/* Center Animated HUD Icon */}
-        <div className="flex-1 flex flex-col items-center justify-center relative z-20 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-y-4">
+        <div className="flex-1 flex flex-col items-center justify-center relative z-20 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-y-4 mt-4">
             <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
               {/* Tech Radar Rings - Dynamic Colors */}
               {(() => {
                 const getRingColors = (id) => {
                   switch(id) {
-                    case 'heating': return ['group-hover:border-blue-400/50', 'group-hover:border-blue-300/30'];
-                    case 'ventilation': return ['group-hover:border-amber-400/50', 'group-hover:border-amber-300/30'];
-                    case 'cooling': return ['group-hover:border-emerald-400/50', 'group-hover:border-emerald-300/30'];
-                    case 'other': return ['group-hover:border-rose-400/50', 'group-hover:border-rose-300/30'];
-                    default: return ['group-hover:border-amber-400/50', 'group-hover:border-amber-300/30'];
+                    case 'heating': return ['group-hover:border-blue-400/100', 'group-hover:border-blue-300/50'];
+                    case 'ventilation': return ['group-hover:border-amber-400/100', 'group-hover:border-amber-300/50'];
+                    case 'cooling': return ['group-hover:border-emerald-400/100', 'group-hover:border-emerald-300/50'];
+                    case 'other': return ['group-hover:border-rose-400/80', 'group-hover:border-rose-300/50'];
+                    default: return ['group-hover:border-amber-400/100', 'group-hover:border-amber-300/50'];
                   }
                 };
                 const [ring1, ring2] = getRingColors(card.id);
                 return (
                   <>
-                    <div className={`absolute inset-0 rounded-full border-[1.5px] border-dashed border-white/10 ${ring1} group-hover:animate-spin [animation-duration:8s] transition-all duration-500`} />
-                    <div className={`absolute inset-3 rounded-full border border-white/5 ${ring2} animate-spin [animation-duration:12s] transition-all duration-500`} style={{ animationDirection: 'reverse' }} />
+                    <div className={`absolute inset-0 rounded-full border-[2.5px] border-dashed border-white/60 ${ring1} group-hover:animate-spin [animation-duration:8s] transition-all duration-500`} />
+                    <div className={`absolute inset-3 rounded-full border-[2px] border-white/50 ${ring2} animate-spin [animation-duration:12s] transition-all duration-500`} style={{ animationDirection: 'reverse' }} />
                   </>
                 );
               })()}
@@ -192,30 +197,30 @@ const ServiceCard: React.FC<{ card: any, idx: number, onClick: () => void }> = (
               {(() => {
                 switch(card.id) {
                   case 'heating': return (
-                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 rotate-45 border-[1px] border-blue-400/30 bg-gradient-to-br from-blue-400/10 to-transparent backdrop-blur-md group-hover:border-blue-400/80 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.4),inset_0_0_15px_rgba(59,130,246,0.2)] transition-all duration-700 group-hover:rotate-[135deg] flex items-center justify-center">
-                      <div className="absolute inset-2 border-[1px] border-blue-400/20 group-hover:border-blue-400/60 transition-all duration-700 group-hover:-rotate-90" />
-                      <div className="w-2.5 h-2.5 bg-blue-400/40 group-hover:bg-blue-300 rounded-sm group-hover:shadow-[0_0_12px_rgba(59,130,246,1)] transition-all duration-700" />
+                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 rotate-45 border-[2px] border-blue-400/80 bg-gradient-to-br from-blue-400/50 to-blue-400/10 transform-gpu will-change-transform group-hover:border-blue-400/100 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.5),inset_0_0_15px_rgba(59,130,246,0.3)] transition-all duration-700 group-hover:rotate-[135deg] flex items-center justify-center">
+                      <div className="absolute inset-2 border-[1.5px] border-blue-400/60 group-hover:border-blue-400/80 transition-all duration-700 group-hover:-rotate-90" />
+                      <div className="w-3 h-3 bg-blue-400/80 group-hover:bg-blue-300 rounded-sm group-hover:shadow-[0_0_12px_rgba(59,130,246,1)] transition-all duration-700" />
                     </div>
                   );
                   case 'ventilation': return (
-                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full border-[1px] border-amber-400/30 bg-gradient-to-br from-amber-400/10 to-transparent backdrop-blur-md group-hover:border-amber-400/80 group-hover:shadow-[0_0_20px_rgba(251,191,36,0.4),inset_0_0_15px_rgba(251,191,36,0.2)] transition-all duration-700 group-hover:rotate-[180deg] flex items-center justify-center">
-                      <div className="absolute inset-2.5 rounded-full border-[2px] border-dashed border-amber-400/30 group-hover:border-amber-400/70 transition-all duration-700 group-hover:animate-spin" style={{ animationDuration: '3s' }} />
-                      <div className="w-3 h-3 bg-amber-400/40 group-hover:bg-amber-300 rounded-full group-hover:shadow-[0_0_12px_rgba(251,191,36,1)] transition-all duration-700" />
+                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full border-[2px] border-amber-400/80 bg-gradient-to-br from-amber-400/50 to-amber-400/10 transform-gpu will-change-transform group-hover:border-amber-400/100 group-hover:shadow-[0_0_20px_rgba(251,191,36,0.5),inset_0_0_15px_rgba(251,191,36,0.3)] transition-all duration-700 group-hover:rotate-[180deg] flex items-center justify-center">
+                      <div className="absolute inset-2.5 rounded-full border-[2px] border-dashed border-amber-400/80 group-hover:border-amber-400/90 transition-all duration-700 group-hover:animate-spin" style={{ animationDuration: '3s' }} />
+                      <div className="w-3.5 h-3.5 bg-amber-400/80 group-hover:bg-amber-300 rounded-full group-hover:shadow-[0_0_12px_rgba(251,191,36,1)] transition-all duration-700" />
                     </div>
                   );
                   case 'cooling': return (
-                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl border-[1px] border-emerald-400/30 bg-gradient-to-br from-emerald-400/10 to-transparent backdrop-blur-md group-hover:border-emerald-400/80 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.4),inset_0_0_15px_rgba(16,185,129,0.2)] transition-all duration-700 group-hover:rotate-[90deg] flex items-center justify-center overflow-hidden">
-                      <div className="absolute w-full h-[1.5px] bg-emerald-400/30 group-hover:bg-emerald-400/60 transition-colors duration-700" />
-                      <div className="absolute h-full w-[1.5px] bg-emerald-400/30 group-hover:bg-emerald-400/60 transition-colors duration-700" />
-                      <div className="w-3.5 h-3.5 border-[1.5px] border-emerald-400/50 group-hover:border-emerald-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.8)_inset] transition-all duration-700 rotate-45" />
+                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl border-[2px] border-emerald-400/80 bg-gradient-to-br from-emerald-400/50 to-emerald-400/10 transform-gpu will-change-transform group-hover:border-emerald-400/100 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.5),inset_0_0_15px_rgba(16,185,129,0.3)] transition-all duration-700 group-hover:rotate-[90deg] flex items-center justify-center overflow-hidden">
+                      <div className="absolute w-full h-[2px] bg-emerald-400/70 group-hover:bg-emerald-400/90 transition-colors duration-700" />
+                      <div className="absolute h-full w-[2px] bg-emerald-400/70 group-hover:bg-emerald-400/90 transition-colors duration-700" />
+                      <div className="w-4 h-4 border-[2px] border-emerald-400/90 group-hover:border-emerald-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.9)_inset] transition-all duration-700 rotate-45" />
                     </div>
                   );
                   case 'other': return (
-                    <div className="relative w-10 h-10 sm:w-12 sm:h-12 rotate-45 border-[0.5px] border-white/20 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-sm group-hover:border-rose-400/60 group-hover:shadow-[0_0_20px_rgba(244,63,94,0.2),inset_0_0_15px_rgba(255,255,255,0.1)] transition-all duration-700 group-hover:rotate-[225deg] flex items-center justify-center">
-                      <div className="absolute inset-2 border-[0.5px] border-white/10 group-hover:border-rose-400/30 transition-colors duration-700 rounded-full" />
-                      <div className="absolute top-1 left-1 w-1 h-1 bg-white/20 group-hover:bg-rose-300 rounded-full transition-all duration-700 group-hover:translate-x-1 group-hover:translate-y-1" />
-                      <div className="absolute bottom-1 right-1 w-1 h-1 bg-white/20 group-hover:bg-rose-300 rounded-full transition-all duration-700 group-hover:-translate-x-1 group-hover:-translate-y-1" />
-                      <div className="w-1.5 h-1.5 bg-slate-500 group-hover:bg-rose-400 rounded-full group-hover:shadow-[0_0_10px_rgba(244,63,94,1)] transition-all duration-700 group-hover:scale-150" />
+                    <div className="relative w-10 h-10 sm:w-12 sm:h-12 rotate-45 border-[2px] border-rose-400/80 bg-gradient-to-br from-rose-400/50 to-rose-400/10 transform-gpu will-change-transform group-hover:border-rose-400/100 group-hover:shadow-[0_0_20px_rgba(244,63,94,0.5),inset_0_0_15px_rgba(244,63,94,0.3)] transition-all duration-700 group-hover:rotate-[225deg] flex items-center justify-center">
+                      <div className="absolute inset-2 border-[1.5px] border-rose-400/60 group-hover:border-rose-400/80 transition-all duration-700 rounded-full" />
+                      <div className="absolute top-1 left-1 w-1.5 h-1.5 bg-rose-400/80 group-hover:bg-rose-300 rounded-full transition-all duration-700 group-hover:translate-x-1 group-hover:translate-y-1" />
+                      <div className="absolute bottom-1 right-1 w-1.5 h-1.5 bg-rose-400/80 group-hover:bg-rose-300 rounded-full transition-all duration-700 group-hover:-translate-x-1 group-hover:-translate-y-1" />
+                      <div className="w-2 h-2 bg-rose-400/80 group-hover:bg-rose-300 rounded-full group-hover:shadow-[0_0_12px_rgba(244,63,94,1)] transition-all duration-700 group-hover:scale-150" />
                     </div>
                   );
                   default: return null;
@@ -237,7 +242,7 @@ const ServiceCard: React.FC<{ card: any, idx: number, onClick: () => void }> = (
                   {card.desc}
                 </p>
                 <div className="w-full flex justify-center">
-                  <div className="px-5 py-2.5 rounded-full bg-white/5 border border-white/10 flex items-center justify-center gap-2 group-hover:bg-amber-400/20 group-hover:border-amber-400/40 transition-colors duration-300 w-full max-w-[200px]">
+                  <div className="px-5 py-2.5 rounded-full bg-white/5 border border-white/30 flex items-center justify-center gap-2 group-hover:bg-amber-400/20 group-hover:border-amber-400/40 transition-colors duration-300 w-full max-w-[200px]">
                     <span className="text-xs font-bold text-amber-300 whitespace-nowrap">مشاهده جزئیات</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-amber-400 -rotate-135 group-hover:-rotate-45 transition-transform duration-500">
                       <path d="m9 18 6-6-6-6"/>
@@ -306,7 +311,8 @@ const Hero: React.FC<HeroProps> = ({
       accentColor: '#003F86',
       badgeBg: 'bg-blue-50',
       badgeText: 'text-[#003F86]',
-      specs: ['پرس پلت ۲ الی ۲۰ تن/ساعت', 'میکرودایزینگ دقیق افزودنی‌ها']
+      specs: ['پرس پلت ۲ الی ۲۰ تن/ساعت', 'میکرودایزینگ دقیق افزودنی‌ها'],
+      bgImage: '/images/service_feed_machinery.jpg'
     },
     {
       id: 'ventilation',
@@ -318,7 +324,8 @@ const Hero: React.FC<HeroProps> = ({
       accentColor: '#FF9F14',
       badgeBg: 'bg-amber-50',
       badgeText: 'text-amber-700',
-      specs: ['بشقاب پروانه‌ای لیسانس آمریکا', 'جت هیتر و سیستم‌های گرمایشی']
+      specs: ['بشقاب پروانه‌ای لیسانس آمریکا', 'جت هیتر و سیستم‌های گرمایشی'],
+      bgImage: '/images/service_farm_equipment.jpg'
     },
     {
       id: 'cooling',
@@ -330,7 +337,8 @@ const Hero: React.FC<HeroProps> = ({
       accentColor: '#003F86',
       badgeBg: 'bg-emerald-50',
       badgeText: 'text-emerald-700',
-      specs: ['سازه‌های سبک و بهداشتی', 'عایق‌بندی و هوابندی کامل']
+      specs: ['سازه‌های سبک و بهداشتی', 'عایق‌بندی و هوابندی کامل'],
+      bgImage: '/images/service_turnkey_shed.jpg'
     },
     {
       id: 'other',
@@ -342,7 +350,8 @@ const Hero: React.FC<HeroProps> = ({
       accentColor: '#FF9F14',
       badgeBg: 'bg-purple-50',
       badgeText: 'text-purple-700',
-      specs: ['کنسانتره گوشتی و تخم‌گذار', 'پریمیکس دامی و روغن‌های گیاهی']
+      specs: ['کنسانتره گوشتی و تخم‌گذار', 'پریمیکس دامی و روغن‌های گیاهی'],
+      bgImage: '/images/service_supplements.jpg'
     },
   ];
 
@@ -379,11 +388,11 @@ const Hero: React.FC<HeroProps> = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-md border border-white/10 px-4 py-1.5 rounded-full mb-6"
+            className="inline-flex items-center gap-2 bg-white/5  transform-gpu will-change-transform border border-white/30 px-4 py-1.5 rounded-full mb-6"
           >
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-amber-400 " />
             <span className="text-xs sm:text-sm font-medium text-slate-100 tracking-wide">
-              {cmsHero?.pillText || 'پیشگام در طراحی سالن و تجهیزات مدرن مرغداری'}
+              {cmsHero?.pillText || 'با نیم قرن تجربه و بیش از ۲۰۰ پروژه ملی و بین‌المللی'}
             </span>
           </motion.div>
 
@@ -421,7 +430,7 @@ const Hero: React.FC<HeroProps> = ({
 
             <Link
               to="/contact"
-              className="w-full sm:w-auto bg-slate-900/40 hover:bg-slate-800/60 text-white font-bold px-8 py-3.5 rounded-full text-sm sm:text-base flex items-center justify-center gap-2 border border-white/20 backdrop-blur-md shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all"
+              className="w-full sm:w-auto bg-slate-900/40 hover:bg-slate-800/60 text-white font-bold px-8 py-3.5 rounded-full text-sm sm:text-base flex items-center justify-center gap-2 border-[1.5px] border-white/40  transform-gpu will-change-transform shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all"
             >
               <PhoneCall className="w-4 h-4 text-amber-400" />
               <span>{cmsHero?.ctaSecondaryText === 'ارتباط با مهندسین' ? 'تماس با ما' : (cmsHero?.ctaSecondaryText || 'تماس با ما')}</span>
@@ -438,7 +447,7 @@ const Hero: React.FC<HeroProps> = ({
           onClick={scrollToCards}
         >
           <span className="text-[10px] sm:text-xs tracking-widest text-white/50 font-medium">اسکرول کنید</span>
-          <div className="w-5 h-8 sm:w-6 sm:h-10 border border-white/20 rounded-full flex justify-center p-1 backdrop-blur-sm bg-slate-950/20">
+          <div className="w-5 h-8 sm:w-6 sm:h-10 border-[1.5px] border-white/40 rounded-full flex justify-center p-1  bg-slate-950/20">
             <motion.div 
               animate={{ y: [0, 12, 0] }}
               transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
@@ -460,7 +469,7 @@ const Hero: React.FC<HeroProps> = ({
       <div 
         ref={cardsSectionRef}
         id="categories-drawer-sheet"
-        className="relative z-20 w-full bg-[#F8FAFC] shadow-[0_-30px_70px_rgba(0,0,0,0.65)] rounded-t-lg sm:rounded-t-lg border-t border-slate-200/90 py-6 sm:py-8"
+        className="relative z-20 w-full bg-[#F8FAFC] shadow-2xl rounded-t-lg sm:rounded-t-lg border-t border-slate-200/90 py-6 sm:py-8"
       >
         
         {/* Subtle Top Pull Handle Bar */}
@@ -475,7 +484,7 @@ const Hero: React.FC<HeroProps> = ({
                 دسته‌بندی تخصصی طیوران صنعت پویا
               </span>
               <h2 className="text-xl sm:text-2xl font-black text-[#003F86]">
-                خطوط تولید، تجهیزات و خدمات صفر تا صد مرغداری
+                طراحی، ساخت و تجهیز پروژه‌های صنعتی در دام، طیور و آبزیان
               </h2>
             </div>
 
@@ -498,25 +507,24 @@ const Hero: React.FC<HeroProps> = ({
                 </div>
 
                 {/* Ultra-Wide Premium Brand Banner */}
-                <div className="mt-8 relative group w-full rounded-[2.5rem] overflow-hidden bg-gradient-to-r from-[#001c3d] via-[#002d61] to-[#003F86] border border-blue-800 p-8 sm:p-10 cursor-pointer shadow-[0_20px_50px_rgba(0,63,134,0.3)] hover:shadow-[0_20px_50px_rgba(0,63,134,0.5)] transition-all duration-500" onClick={onOpenConsultation}>
+                <div className="mt-8 relative group w-full rounded-[2.5rem] overflow-hidden bg-gradient-to-r from-[#001c3d] via-[#002d61] to-[#003F86] border border-blue-800 p-8 sm:p-10 cursor-pointer shadow-xl hover:shadow-2xl transition-all duration-500" onClick={onOpenConsultation}>
                     {/* Animated geometric background */}
-                    <div className="absolute inset-0 bg-[url('/images/cubes.png')] opacity-10 group-hover:opacity-20 transition-opacity duration-700" />
-                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover:scale-125 transition-transform duration-1000 ease-out pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-400/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 group-hover:scale-125 transition-transform duration-1000 ease-out pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,_rgba(245,158,11,0.08)_0%,_transparent_70%)] -translate-y-1/2 translate-x-1/2 group-hover:scale-125 transition-transform duration-1000 ease-out pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,_rgba(96,165,250,0.08)_0%,_transparent_70%)] translate-y-1/2 -translate-x-1/2 group-hover:scale-125 transition-transform duration-1000 ease-out pointer-events-none" />
 
                     <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
                        <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-right gap-6">
                           {/* Glowing Award Badge */}
-                          <div className="relative w-20 h-20 shrink-0 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.2)] group-hover:scale-110 transition-transform duration-500 group-hover:rotate-6">
-                             <Award className="w-10 h-10 text-amber-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]" />
-                             <div className="absolute -top-2 -right-2 w-4 h-4 bg-amber-300 rounded-full blur-[4px] animate-pulse" />
+                          <div className="relative w-20 h-20 shrink-0 rounded-2xl bg-white/10  transform-gpu will-change-transform border-[1.5px] border-white/40 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.2)] group-hover:scale-110 transition-transform duration-500 group-hover:rotate-6">
+                             <Award className="w-10 h-10 text-amber-400 drop-shadow-md" />
+                             <div className="absolute -top-2 -right-2 w-4 h-4 bg-amber-300 rounded-full  " />
                              <div className="absolute -top-2 -right-2 w-2 h-2 bg-white rounded-full" />
                           </div>
                           
                           <div>
                              <span className="text-[10px] sm:text-[11px] font-bold text-amber-400/90 tracking-widest uppercase mb-1.5 block drop-shadow-md">Engineering Excellence</span>
                              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white drop-shadow-lg mb-2">شرکت طیوران صنعت پویا</h2>
-                             <p className="text-sm sm:text-base text-blue-100/90 max-w-xl leading-relaxed font-medium">پیمانکار تخصصی و استراتژیک تجهیزات مدرن پرورشی، با ۲۴ ماه گارانتی بی‌قید و شرط قطعات و خدمات نصب در سراسر کشور.</p>
+                             <p className="text-sm sm:text-base text-blue-100/90 max-w-xl leading-relaxed font-medium">از طراحی و ساخت تا تجهیز و بهره‌برداری؛ راهکاری یکپارچه برای پروژه‌های صنعت دام، طیور و آبزیان</p>
                           </div>
                        </div>
 
@@ -534,16 +542,16 @@ const Hero: React.FC<HeroProps> = ({
 
           {/* Bottom Quick Feature Strip */}
           <div className="relative z-10 w-full mt-6">
-            <div className="bg-white/90 backdrop-blur-xs border border-slate-200/90 rounded-3xl p-3 sm:px-5 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600 shadow-2xs">
+            <div className="bg-white/90  border border-slate-200/90 rounded-3xl p-3 sm:px-5 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600 shadow-2xs">
               
               <div className="flex items-center gap-4">
                 <span className="font-bold text-slate-800 flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  استاندارد ماشین‌آلات سنگین CE
+                  مشاوره رایگان
                 </span>
                 <span className="hidden sm:inline text-slate-300">|</span>
                 <span className="hidden sm:inline text-slate-500">
-                  پشتیبانی فنی ۲۴/۷ و تامین فوری قطعات کارخانه
+                  ارائه خدمات نصب و پشتیبانی فنی، متناسب با نوع پروژه و محصول
                 </span>
               </div>
 
@@ -552,7 +560,7 @@ const Hero: React.FC<HeroProps> = ({
                   onClick={() => onNavigate('contact')}
                   className="text-[#003F86] hover:text-amber-500 font-bold flex items-center gap-1 transition-colors cursor-pointer"
                 >
-                  <span>مشاوره و تماس با ما</span>
+                  <span>تماس با ما</span>
                   <ChevronLeft className="w-3.5 h-3.5" />
                 </button>
               </div>

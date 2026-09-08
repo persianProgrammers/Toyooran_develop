@@ -101,10 +101,10 @@ export const CategoryMarquee: React.FC<CategoryMarqueeProps> = ({ selectedCatego
             <div
               key={`${cat.id}-${idx}`}
               onClick={() => onSelectCategory(cat.id as ProductCategory | 'all')}
-              className={`group relative flex-shrink-0 w-[150px] sm:w-[200px] md:w-[240px] p-4 sm:p-6 rounded-[2rem] border transition-all duration-500 ease-out flex flex-col items-center justify-center gap-3 sm:gap-5 overflow-hidden ${
+              className={`group relative flex-shrink-0 w-[150px] sm:w-[200px] md:w-[220px] aspect-square p-4 sm:p-6 rounded-[2rem] border transition-all duration-500 ease-out flex flex-col items-center justify-center gap-3 sm:gap-5 overflow-hidden ${
                 isSelected
                   ? 'bg-gradient-to-br from-[#003F86] via-[#002a5c] to-slate-900 border-[#003F86]/50 shadow-[0_10px_30px_rgba(0,63,134,0.4)] scale-105 z-10 -translate-y-2'
-                  : 'bg-white backdrop-blur-xl border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-amber-400/50 hover:shadow-[0_15px_35px_rgba(251,191,36,0.15)] hover:-translate-y-2'
+                  : 'bg-white  border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-amber-400/50 hover:shadow-[0_15px_35px_rgba(251,191,36,0.15)] hover:-translate-y-2'
               }`}
             >
               {/* Shine Sweep Effect for Hover */}
@@ -128,25 +128,7 @@ export const CategoryMarquee: React.FC<CategoryMarqueeProps> = ({ selectedCatego
                 <IconComponent className={`w-6 h-6 sm:w-8 sm:h-8 transition-transform duration-500 ${isSelected ? 'drop-shadow-md' : 'group-hover:scale-110 drop-shadow-sm'}`} />
               </div>
               
-              <div className="relative z-20 flex flex-col items-center gap-1.5 w-full">
-                <h3 className={`text-sm sm:text-lg font-black text-center transition-colors duration-300 ${
-                  isSelected ? 'text-white' : 'text-slate-800 group-hover:text-[#003F86]'
-                }`}>
-                  {cat.title}
-                </h3>
-                
-                <div className={`flex items-center justify-center w-full mt-2 transition-all duration-500 ${
-                  isSelected ? 'opacity-100 translate-y-0' : 'opacity-70 group-hover:opacity-100 group-hover:-translate-y-1'
-                }`}>
-                  <span className={`text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-3 sm:py-1.5 rounded-xl flex items-center gap-1.5 transition-colors duration-300 ${
-                    isSelected 
-                      ? 'bg-white/10 text-amber-300 border border-white/10' 
-                      : 'bg-slate-200/50 text-slate-600 border border-slate-200/50 group-hover:bg-amber-100/50 group-hover:text-amber-700 group-hover:border-amber-300/50'
-                  }`}>
-                    {cat.productCount} {isAll ? 'محصول کل' : 'محصول'}
-                  </span>
-                </div>
-              </div>
+              <div className="relative z-20 flex flex-col items-center justify-center gap-1.5 w-full h-full pb-2">                <h3 className={`text-lg sm:text-2xl font-black text-center transition-colors duration-300 ${                  isSelected ? 'text-white' : 'text-slate-800 group-hover:text-[#003F86]'                }`}>                  {cat.title.replace(/ مرغداری$/, '')}                </h3>              </div>
             </div>
           );
         })}

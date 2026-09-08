@@ -131,7 +131,7 @@ export const ServicesTab: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mt-3 bg-slate-950/70 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300 space-y-1">
+              <div className="mt-3 bg-slate-950/85 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300 space-y-1">
                 <span className="font-bold text-slate-400 text-[11px] block">مسئله‌ای که حل می‌کنیم:</span>
                 <p className="line-clamp-2">{s.problemSolved}</p>
               </div>
@@ -174,7 +174,7 @@ export const ServicesTab: React.FC = () => {
 
       {/* Delete Modal */}
       {deleteConfirmId && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-slate-950/80  flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-sm w-full space-y-4 shadow-2xl">
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
               <AlertCircle className="w-5 h-5 text-rose-400" />
@@ -204,7 +204,7 @@ export const ServicesTab: React.FC = () => {
 
       {/* Create / Edit Modal */}
       {(isCreating || editingService) && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-slate-950/80  flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 max-w-2xl w-full my-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
             
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">

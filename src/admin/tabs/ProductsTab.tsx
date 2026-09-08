@@ -17,7 +17,7 @@ import { ImagePicker } from '../components/ImagePicker';
 import { Product, ProductCategory } from '../../types';
 
 export const ProductsTab: React.FC = () => {
-  const { products, addProduct, updateProduct, deleteProduct, categories } = useData();
+  const { products, addProduct, updateProduct, deleteProduct, replaceAllProducts, categories } = useData();
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -85,7 +85,6 @@ export const ProductsTab: React.FC = () => {
       applications: editingProduct?.applications || [],
       specs: editingProduct?.specs || [],
       models: editingProduct?.models || [],
-      isIndustrialMachine: false
     };
 
     if (isCreating) {
@@ -238,10 +237,10 @@ export const ProductsTab: React.FC = () => {
 
       {/* Add / Edit Modal */}
       {(isCreating || editingProduct) && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80  flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-4xl shadow-2xl relative flex flex-col max-h-[90vh]">
             
-            <div className="p-5 border-b border-slate-800 flex items-center justify-between sticky top-0 bg-slate-900/90 backdrop-blur-md z-10 rounded-t-3xl">
+            <div className="p-5 border-b border-slate-800 flex items-center justify-between sticky top-0 bg-slate-900/90  z-10 rounded-t-3xl">
               <h3 className="text-sm font-black text-white flex items-center gap-2">
                 <Package className="w-4 h-4 text-amber-400" />
                 {isCreating ? 'افزودن محصول جدید' : `ویرایش محصول: ${formData.name}`}
@@ -409,7 +408,7 @@ export const ProductsTab: React.FC = () => {
               </form>
             </div>
 
-            <div className="p-5 border-t border-slate-800 bg-slate-900/90 backdrop-blur-md rounded-b-3xl sticky bottom-0 flex justify-end gap-3 z-10">
+            <div className="p-5 border-t border-slate-800 bg-slate-900/90  rounded-b-3xl sticky bottom-0 flex justify-end gap-3 z-10">
               <button
                 type="button"
                 onClick={() => { setIsCreating(false); setEditingProduct(null); }}

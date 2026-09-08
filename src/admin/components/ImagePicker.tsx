@@ -70,7 +70,7 @@ export const ImagePicker: React.FC<ImagePickerProps> = ({ label, value, onChange
       {value && (
         <div className="mt-2 aspect-video w-full max-w-[200px] rounded-lg overflow-hidden border border-slate-700 relative group">
           <img src={value} alt="Preview" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+          <div className="absolute inset-0 bg-slate-900/95 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
             <button
               type="button"
               onClick={() => onChange('')}
@@ -84,7 +84,7 @@ export const ImagePicker: React.FC<ImagePickerProps> = ({ label, value, onChange
 
       {/* Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80  overflow-y-auto">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-3xl overflow-hidden shadow-2xl my-auto">
             <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-900/50">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">

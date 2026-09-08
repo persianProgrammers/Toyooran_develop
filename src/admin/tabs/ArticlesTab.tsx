@@ -201,7 +201,7 @@ export const ArticlesTab: React.FC = () => {
 
       {/* Delete Modal */}
       {deleteConfirmId && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-slate-950/80  flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-sm w-full space-y-4 shadow-2xl">
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
               <AlertCircle className="w-5 h-5 text-rose-400" />
@@ -231,7 +231,7 @@ export const ArticlesTab: React.FC = () => {
 
       {/* Create / Edit Modal */}
       {(isCreating || editingArticle) && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-slate-950/80  flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 max-w-3xl w-full my-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
             
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">

@@ -68,9 +68,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({
     <div className="min-h-screen relative overflow-hidden z-0" id="about-page">
       {/* Dynamic Vibrant Mesh Gradient Background */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-gradient-to-br from-blue-400/40 to-purple-500/30 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-gradient-to-br from-amber-400/40 to-orange-500/30 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '10s' }} />
-        <div className="absolute top-[30%] left-[30%] w-[40vw] h-[40vw] bg-gradient-to-br from-emerald-400/30 to-teal-500/30 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '12s' }} />
+        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[radial-gradient(circle_at_center,_rgba(96,165,250,0.15)_0%,_transparent_60%)] animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[radial-gradient(circle_at_center,_rgba(251,191,36,0.15)_0%,_transparent_60%)] animate-pulse" style={{ animationDuration: '10s' }} />
+        <div className="absolute top-[30%] left-[30%] w-[40vw] h-[40vw] bg-[radial-gradient(circle_at_center,_rgba(52,211,153,0.12)_0%,_transparent_60%)] animate-pulse" style={{ animationDuration: '12s' }} />
       </div>
 
       <div className="w-full min-h-[100dvh] flex flex-col justify-center relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 z-10">
@@ -81,7 +81,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur border border-white/50 shadow-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/95  border border-white/50 shadow-sm mb-6">
               <Award className="w-5 h-5 text-amber-500" />
               <span className="text-sm font-bold text-slate-800">بیش از ۵۰ سال سابقه درخشان در صنعت</span>
             </div>
@@ -104,7 +104,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center bg-white/60 backdrop-blur-2xl rounded-[2.5rem] p-6 md:p-10 border border-white shadow-xl shadow-slate-300/40"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center bg-white/95  rounded-[2.5rem] p-6 md:p-10 border border-white shadow-xl shadow-slate-300/40"
         >
           <div className="space-y-6">
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 leading-snug">
@@ -139,7 +139,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               imgClassName="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent pointer-events-none"></div>
-            <div className="absolute bottom-6 right-6 left-6 text-white text-sm backdrop-blur-md bg-white/10 p-4 rounded-xl border border-white/20">
+            <div className="absolute bottom-6 right-6 left-6 text-white text-sm  bg-white/10 p-4 rounded-xl border border-white/20">
               <strong className="block text-base font-bold text-amber-400 mb-2">
                 کارخانجات و دفاتر مهندسی طیوران صنعت پویا
               </strong>
@@ -154,7 +154,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="bg-white/60 backdrop-blur-2xl rounded-[2.5rem] p-8 sm:p-12 border border-white shadow-xl shadow-slate-300/40"
+          className="bg-white/95  rounded-[2.5rem] p-8 sm:p-12 border border-white shadow-xl shadow-slate-300/40"
         >
           <div className="text-center mb-10">
             <h3 className="text-2xl sm:text-3xl font-black text-slate-900">
@@ -193,7 +193,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {TESTIMONIALS_AND_PROOF.map((item, i) => (
-              <div key={i} className="bg-white/70 backdrop-blur-xl p-8 rounded-[2rem] border border-white shadow-lg shadow-slate-200/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+              <div key={i} className="bg-white/70  p-8 rounded-[2rem] border border-white shadow-lg shadow-slate-200/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
                 <p className="text-sm text-slate-700 leading-relaxed italic mb-6 font-medium relative">
                   <span className="text-4xl text-amber-300 absolute -top-4 -right-2 opacity-50 font-serif">"</span>
                   {item.text}

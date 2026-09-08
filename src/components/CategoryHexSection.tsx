@@ -8,7 +8,13 @@ import {
   Pill, 
   ArrowLeft, 
   ChevronLeft,
-  Sparkles
+  Sparkles,
+  Thermometer,
+  Snowflake,
+  Wind,
+  LayoutGrid,
+  Database,
+  MoreHorizontal
 } from 'lucide-react';
 import { ProductCategory, PageSection, CategoryInfo } from '../types';
 import { CATEGORIES_DATA } from '../data/mockData';
@@ -26,9 +32,15 @@ export const CategoryHexSection: React.FC<CategoryHexSectionProps> = ({
   onNavigateToProducts,
 }) => {
   const iconMap: Record<string, React.ElementType> = {
-    Wheat,
-    Droplets,
+    Thermometer,
     Fan,
+    Droplets,
+    Snowflake,
+    Wind,
+    Wheat,
+    LayoutGrid,
+    Database,
+    MoreHorizontal,
     Factory,
     Warehouse,
     Pill
@@ -88,7 +100,7 @@ export const CategoryHexSection: React.FC<CategoryHexSectionProps> = ({
                   </span>
 
                   {/* Icon on Image */}
-                  <div className="absolute bottom-3 right-3 w-10 h-10 rounded-xl bg-white/90 backdrop-blur-xs flex items-center justify-center text-[#003F86] shadow-sm">
+                  <div className="absolute bottom-3 right-3 w-10 h-10 rounded-xl bg-white/90  flex items-center justify-center text-[#003F86] shadow-sm">
                     <Icon className="w-5 h-5 text-[#003F86]" />
                   </div>
                 </div>

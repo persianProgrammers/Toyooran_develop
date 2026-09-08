@@ -72,9 +72,9 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
     <section id="products" className="min-h-screen relative overflow-hidden z-0">
       {/* Dynamic Vibrant Mesh Gradient Background to match Magazine */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-gradient-to-br from-blue-400/40 to-purple-500/30 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-gradient-to-br from-amber-400/40 to-orange-500/30 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '10s' }} />
-        <div className="absolute top-[30%] right-[30%] w-[40vw] h-[40vw] bg-gradient-to-br from-emerald-400/30 to-teal-500/30 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '12s' }} />
+        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[radial-gradient(circle_at_center,_rgba(96,165,250,0.15)_0%,_transparent_60%)]" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[radial-gradient(circle_at_center,_rgba(251,191,36,0.15)_0%,_transparent_60%)]" style={{ animationDuration: '10s' }} />
+        <div className="absolute top-[30%] right-[30%] w-[40vw] h-[40vw] bg-[radial-gradient(circle_at_center,_rgba(52,211,153,0.12)_0%,_transparent_60%)]" style={{ animationDuration: '12s' }} />
       </div>
 
       <div className="w-full min-h-[100dvh] flex flex-col justify-center relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 z-10">
@@ -90,15 +90,15 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
             viewport={{ once: true }}
             className="mb-8 relative z-10"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur border border-white/50 shadow-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/95  border border-white/50 shadow-sm mb-6">
               <Zap className="w-5 h-5 text-amber-500" />
               <span className="text-sm font-bold text-slate-800">تجهیزات و ماشین‌آلات</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight mb-6">
-              نمایشگاه <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-amber-500">محصولات</span>
+              فروشگاه <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-amber-500">محصولات</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
-              بررسی و انتخاب پیشرفته‌ترین تجهیزات و ماشین‌آلات صنعت طیور با بالاترین استانداردهای مهندسی
+              تجهیزات تخصصی مرغداری، ماشین‌آلات خطوط تولید خوراک و محصولات موردنیاز صنعت دام، طیور و آبزیان
             </p>
           </motion.div>
         </div>
@@ -176,7 +176,7 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
                       viewport={{ once: true, margin: "-50px" }}
                       transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
                       key={`${product.id}-${selectedCategory}`}
-                      className="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl border border-slate-100 transition-all duration-500 flex flex-col"
+                      className="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transform-gpu will-change-transform border border-slate-100 transition-all duration-300 flex flex-col"
                     >
                     {/* Image Area */}
                     <div 
@@ -187,21 +187,16 @@ export const ProductCatalogSection: React.FC<ProductCatalogSectionProps> = ({
                         src={product.image}
                         alt={product.name}
                         className="w-full h-full"
-                        imgClassName="w-full h-full object-cover mix-blend-multiply transform transition-transform duration-700 group-hover:scale-105"
+                        imgClassName="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
 
                       {/* Floating Badges */}
-                      <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-[11px] font-bold text-[#003F86] shadow-sm border border-white">
-                        {product.categoryTitle}
+                      <div className="absolute top-4 right-4 bg-white/90  px-4 py-1.5 rounded-full text-[11px] font-bold text-[#003F86] shadow-sm border border-white">
+                        {product.categoryTitle.replace(/ مرغداری$/, '')}
                       </div>
                       
-                      {product.isIndustrialMachine && (
-                        <div className="absolute top-4 left-4 bg-amber-400 px-3 py-1.5 rounded-full text-[11px] font-bold text-slate-900 shadow-sm flex items-center gap-1">
-                          <Zap className="w-3.5 h-3.5" />
-                          صنعتی
-                        </div>
-                      )}
+                      
                     </div>
 
                     {/* Content Area */}

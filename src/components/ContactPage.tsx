@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { AparatIcon } from "./AparatIcon";
 import { motion, AnimatePresence } from 'motion/react';
+import toast from 'react-hot-toast';
 import { 
   Phone, Mail, MapPin, Clock, Building2, Factory, Map,
-  MessageCircle, Instagram, Linkedin, FileText, Send
+  MessageCircle, Instagram, Linkedin, FileText, Send, Youtube, Tv, Grid
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import { FreeConsultationForm } from './FreeConsultationForm';
@@ -36,9 +38,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({
       
       {/* Dynamic Vibrant Mesh Gradient Background */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-gradient-to-br from-blue-400/40 to-purple-500/30 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-gradient-to-br from-amber-400/40 to-orange-500/30 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '10s' }} />
-        <div className="absolute top-[30%] left-[30%] w-[40vw] h-[40vw] bg-gradient-to-br from-emerald-400/30 to-teal-500/30 blur-[120px] rounded-full mix-blend-multiply animate-pulse" style={{ animationDuration: '12s' }} />
+        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[radial-gradient(circle_at_center,_rgba(96,165,250,0.15)_0%,_transparent_60%)] animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[radial-gradient(circle_at_center,_rgba(251,191,36,0.15)_0%,_transparent_60%)] animate-pulse" style={{ animationDuration: '10s' }} />
+        <div className="absolute top-[30%] left-[30%] w-[40vw] h-[40vw] bg-[radial-gradient(circle_at_center,_rgba(52,211,153,0.12)_0%,_transparent_60%)] animate-pulse" style={{ animationDuration: '12s' }} />
       </div>
 
       <div className="w-full min-h-[100dvh] flex flex-col justify-center relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 z-10">
@@ -49,7 +51,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur border border-white/50 shadow-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/95  border border-white/50 shadow-sm mb-6">
               <Phone className="w-5 h-5 text-amber-500" />
               <span className="text-sm font-bold text-slate-800">ارتباط هوشمند با طیوران صنعت پویا</span>
             </div>
@@ -71,7 +73,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
           
           {/* Contact Direct Info Box (5 Cols) -> Now with premium dark aesthetic matching the new landing section */}
           <div className="xl:col-span-5 space-y-5">
-            <div className="bg-slate-950 text-white rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-2xl relative overflow-hidden group">
+            <div className="bg-[#001c3d] text-white rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-8 lg:p-12 border-none shadow-[0_30px_60px_rgba(0,0,0,0.15)] relative overflow-hidden group">
               {/* Premium Inner Glows */}
               <div className="absolute -top-16 -right-16 w-32 h-32 bg-amber-500/20 blur-3xl rounded-full group-hover:bg-amber-500/30 transition-colors duration-500" />
               <div className="absolute -bottom-16 -left-16 w-40 h-40 bg-blue-500/20 blur-3xl rounded-full group-hover:bg-blue-500/30 transition-colors duration-500" />
@@ -102,20 +104,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                     </div>
                     <div>
                       <span className="text-slate-400 block text-xs mb-1">واحد فروش و استعلام:</span>
-                      <a href={`tel:\${companyInfo.salesPhone || companyInfo.phone}`} className="font-mono font-bold text-white text-base hover:text-blue-400 transition-colors drop-shadow-md">
-                        {companyInfo.salesPhone || companyInfo.phone}
-                      </a>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-400/30 hover:bg-white/10 transition-all duration-300">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-400/10 text-emerald-400 flex items-center justify-center shrink-0 shadow-inner shadow-emerald-400/20">
-                      <Mail className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <span className="text-slate-400 block text-xs mb-1">پست الکترونیک رسمی:</span>
-                      <a href={`mailto:\${companyInfo.email}`} className="font-mono text-slate-200 text-sm hover:text-emerald-400 transition-colors">
-                        {companyInfo.email}
+                      <a href="tel:09151126258" className="font-mono font-bold text-white text-base hover:text-blue-400 transition-colors drop-shadow-md" style={{ direction: 'ltr', display: 'inline-block' }}>
+                        ۰۹۱۵۱۱۲۶۲۵۸
                       </a>
                     </div>
                   </div>
@@ -132,30 +122,82 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 </div>
 
                 {/* Social Links inside the dark card */}
-                {companyInfo.socialLinks && Object.values(companyInfo.socialLinks).some(link => typeof link === 'string' && link.trim() !== '') && (
+                {companyInfo.socialLinks && (
                   <div className="mt-8 pt-6 border-t border-white/10">
                     <span className="text-slate-400 text-xs block mb-4">شبکه‌های اجتماعی:</span>
                     <div className="flex items-center gap-3">
-                      {companyInfo.socialLinks.instagram && (
-                        <a href={companyInfo.socialLinks.instagram} className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-pink-500 hover:to-purple-500 hover:border-transparent transition-all duration-300 group">
-                          <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                        </a>
-                      )}
-                      {companyInfo.socialLinks.telegram && (
-                        <a href={companyInfo.socialLinks.telegram} className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#0088cc] hover:border-transparent transition-all duration-300 group">
-                          <Send className="w-4 h-4 ml-0.5 group-hover:scale-110 transition-transform" />
-                        </a>
-                      )}
-                      {companyInfo.socialLinks.whatsapp && (
-                        <a href={companyInfo.socialLinks.whatsapp} className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#25D366] hover:border-transparent transition-all duration-300 group">
-                          <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                        </a>
-                      )}
-                      {companyInfo.socialLinks.linkedin && (
-                        <a href={companyInfo.socialLinks.linkedin} className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#0077b5] hover:border-transparent transition-all duration-300 group">
-                          <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                        </a>
-                      )}
+                      <a 
+                        href={companyInfo.socialLinks.instagram || '#'} 
+                        onClick={(e) => {
+                          if (!companyInfo.socialLinks.instagram) {
+                            e.preventDefault();
+                            toast('به زودی صفحه اینستاگرام ما راه‌اندازی می‌شود', { icon: '✨' });
+                          }
+                        }}
+                        target="_blank" rel="noreferrer"
+                        className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-pink-500 hover:to-purple-500 hover:border-transparent transition-all duration-300 group">
+                        <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      </a>
+                      <a 
+                        href={companyInfo.socialLinks.telegram || '#'} 
+                        onClick={(e) => {
+                          if (!companyInfo.socialLinks.telegram) {
+                            e.preventDefault();
+                            toast('به زودی کانال تلگرام ما راه‌اندازی می‌شود', { icon: '✨' });
+                          }
+                        }}
+                        target="_blank" rel="noreferrer"
+                        className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#0088cc] hover:border-transparent transition-all duration-300 group">
+                        <Send className="w-4 h-4 ml-0.5 group-hover:scale-110 transition-transform" />
+                      </a>
+                      <a 
+                        href={companyInfo.socialLinks.aparat || '#'} 
+                        onClick={(e) => {
+                          if (!companyInfo.socialLinks.aparat) {
+                            e.preventDefault();
+                            toast('به زودی کانال آپارات ما راه‌اندازی می‌شود', { icon: '✨' });
+                          }
+                        }}
+                        target="_blank" rel="noreferrer"
+                        className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#263238] hover:border-transparent transition-all duration-300 group">
+                        <AparatIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      </a>
+                      <a 
+                        href={companyInfo.socialLinks.rubika || '#'} 
+                        onClick={(e) => {
+                          if (!companyInfo.socialLinks.rubika) {
+                            e.preventDefault();
+                            toast('به زودی کانال روبیکا ما راه‌اندازی می‌شود', { icon: '✨' });
+                          }
+                        }}
+                        target="_blank" rel="noreferrer"
+                        className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-gradient-to-r hover:from-[#ff7300] hover:to-[#7600b5] hover:border-transparent transition-all duration-300 group">
+                        <Grid className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      </a>
+                      <a 
+                        href={companyInfo.socialLinks.youtube || '#'} 
+                        onClick={(e) => {
+                          if (!companyInfo.socialLinks.youtube) {
+                            e.preventDefault();
+                            toast('به زودی کانال یوتیوب ما راه‌اندازی می‌شود', { icon: '✨' });
+                          }
+                        }}
+                        target="_blank" rel="noreferrer"
+                        className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#ff0000] hover:border-transparent transition-all duration-300 group">
+                        <Youtube className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      </a>
+                      <a 
+                        href={companyInfo.socialLinks.linkedin || '#'} 
+                        onClick={(e) => {
+                          if (!companyInfo.socialLinks.linkedin) {
+                            e.preventDefault();
+                            toast('به زودی صفحه لینکدین ما راه‌اندازی می‌شود', { icon: '✨' });
+                          }
+                        }}
+                        target="_blank" rel="noreferrer"
+                        className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#0077b5] hover:border-transparent transition-all duration-300 group">
+                        <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      </a>
                     </div>
                   </div>
                 )}
@@ -176,116 +218,137 @@ export const ContactPage: React.FC<ContactPageProps> = ({
         </div>
 
         {/* Section 2: Massive Dark Cinematic Locations Card (from unified section) */}
-        <div className="bg-slate-950 rounded-[2.5rem] p-6 lg:p-8 relative overflow-hidden flex flex-col shadow-2xl border border-slate-800">
+        <div className="bg-[#001c3d] rounded-[2.5rem] sm:rounded-[3.5rem] p-6 sm:p-12 lg:p-16 relative overflow-hidden flex flex-col shadow-[0_30px_60px_rgba(0,0,0,0.15)] border-none">
           {/* Ambient Background Magic */}
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#003F86]/20 rounded-full blur-[100px] pointer-events-none" />
-          <div className="absolute inset-0 bg-[url('/images/cubes.png')] opacity-[0.02] mix-blend-overlay pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_rgba(245,158,11,0.08)_0%,_transparent_70%)] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_rgba(0,63,134,0.15)_0%,_transparent_70%)] translate-y-1/3 -translate-x-1/3 pointer-events-none" />
+          <div className="absolute inset-0 bg-[url('/images/cubes.png')] opacity-[0.03] pointer-events-none" />
           
-          <div className="relative z-10 mb-8">
-            <h3 className="text-2xl font-black text-white flex items-center gap-3">
-              <MapPin className="w-6 h-6 text-amber-400" />
-              <span>شعب و کارخانجات در یک نگاه</span>
-            </h3>
-          </div>
+          <div className="relative z-10 w-full">
+            <div className="flex items-center gap-6 mb-10 opacity-60">
+                <div className="h-px flex-1 bg-gradient-to-l from-white/20 to-transparent" />
+                <h3 className="text-white/80 font-bold text-lg tracking-widest uppercase">آدرس مراکز و شعب</h3>
+                <div className="h-px flex-1 bg-gradient-to-r from-white/20 to-transparent" />
+              </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 relative z-10 lg:h-[450px]">
-            {/* Left Sidebar: Scrollable List of Branches */}
-            <div className="lg:col-span-4 bg-white/5 border border-white/10 rounded-3xl p-3 flex flex-col backdrop-blur-xl h-[300px] lg:h-full relative overflow-hidden shadow-inner">
-               <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-slate-950/80 to-transparent z-10 pointer-events-none rounded-t-3xl" />
-               <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-slate-950/90 to-transparent z-10 pointer-events-none rounded-b-3xl" />
-               
-               <div className="flex-1 overflow-y-auto pl-2 pr-1 dir-scrollbar space-y-2 relative z-0 pb-6 pt-2">
-                 {locations.map((loc, idx) => {
-                    const isActive = idx === activeLocationIndex;
-                    const isHQ = loc.type === 'headquarter';
-                    const isFact = loc.type === 'factory';
-                    const Icon = isHQ ? Building2 : isFact ? Factory : MapPin;
-                    return (
-                      <button
-                        key={loc.id || idx}
-                        onClick={() => setActiveLocationIndex(idx)}
-                        className={`w-full text-right flex items-center gap-4 p-4 rounded-[1.25rem] transition-all duration-300 border ${
-                          isActive 
-                            ? 'bg-white/10 border-amber-400/40 shadow-[0_0_20px_rgba(251,191,36,0.15)]' 
-                            : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20'
-                        }`}
-                      >
-                         <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-[12px] flex items-center justify-center shrink-0 transition-all duration-300 shadow-inner ${
-                           isActive ? 'bg-amber-400 text-slate-900 shadow-white/20' : 'bg-slate-800 text-slate-200 shadow-transparent'
-                         }`}>
-                           <Icon className="w-5 h-5" />
-                         </div>
-                         <div className="flex-1 overflow-hidden">
-                           <h5 className={`font-black truncate text-xs sm:text-sm mb-1 transition-colors ${isActive ? 'text-amber-400' : 'text-white'}`}>
-                             {loc.title || (isHQ ? 'دفتر مرکزی' : 'شعبه')}
-                           </h5>
-                           <p className="text-[10px] sm:text-[11px] text-slate-400 truncate">{loc.address}</p>
-                         </div>
-                      </button>
-                    )
-                 })}
-               </div>
-            </div>
+              {/* Fixed-Height Container for Scalability */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-auto lg:h-[500px]">
+                
+                {/* 1. Left Sidebar: Scrollable List of Branches */}
+                <div className="lg:col-span-4 bg-white/5 border border-white/10 rounded-[2rem] p-4 flex flex-col  h-[350px] lg:h-full relative overflow-hidden shadow-2xl">
+                   {/* Fade masks for elegant scrolling */}
+                   <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-slate-950/80 to-transparent z-10 pointer-events-none rounded-t-[2rem]" />
+                   <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-slate-950/90 to-transparent z-10 pointer-events-none rounded-b-[2rem]" />
+                   
+                   <div className="flex-1 overflow-y-auto pl-2 pr-1 dir-scrollbar space-y-3 relative z-0 pb-6 pt-2">
+                     {locations.map((loc, idx) => {
+                        const isActive = idx === activeLocationIndex;
+                        const isHQ = loc.type === 'headquarter';
+                        const isFact = loc.type === 'factory';
+                        const Icon = isHQ ? Building2 : isFact ? Factory : MapPin;
 
-            {/* Right Detail View: Active Card */}
-            <div className="lg:col-span-8 relative rounded-3xl overflow-hidden bg-slate-900/50 border border-white/10 h-[350px] lg:h-full group shadow-2xl">
-               <AnimatePresence mode="wait">
-                  {activeLocation && (
-                     <motion.div
-                       key={activeLocationIndex}
-                       initial={{ opacity: 0, scale: 0.98, filter: 'blur(5px)' }}
-                       animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                       exit={{ opacity: 0, scale: 1.02, filter: 'blur(5px)' }}
-                       transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-                       className="absolute inset-0 flex flex-col w-full h-full"
-                     >
-                        <div className="absolute inset-0 z-0 bg-slate-900">
-                          {activeLocation.mapEmbedUrl ? (
-                             <iframe
-                               src={activeLocation.mapEmbedUrl}
-                               className="w-full h-full grayscale opacity-40 mix-blend-screen group-hover:opacity-70 group-hover:grayscale-[20%] transition-all duration-700 object-cover"
-                               loading="lazy"
-                             />
-                          ) : (
-                             <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-                                <div className="absolute inset-0 bg-[url('/images/cubes.png')] opacity-5" />
-                                <div className="w-64 h-64 bg-amber-500/10 rounded-full blur-[80px]" />
-                                <div className="w-[400px] h-[400px] absolute -bottom-32 -left-32 bg-blue-500/10 rounded-full blur-[100px]" />
-                                <Map className="w-16 h-16 text-white/5 relative z-10" />
+                        return (
+                          <button
+                            key={loc.id || idx}
+                            onClick={() => setActiveLocationIndex(idx)}
+                            className={`w-full text-right flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 border ${
+                              isActive
+                                ? 'bg-white/10 border-amber-400/40 shadow-[0_0_20px_rgba(251,191,36,0.1)]'
+                                : 'bg-transparent border-transparent hover:bg-white/5 hover:border-white/10'
+                            }`}
+                          >
+                             <div className={`w-12 h-12 rounded-[14px] flex items-center justify-center shrink-0 transition-all duration-300 shadow-inner ${
+                               isActive ? 'bg-amber-400 text-slate-900 shadow-white/20' : 'bg-white/5 text-slate-400 shadow-transparent'
+                             }`}>
+                               <Icon className="w-5 h-5" />
                              </div>
-                          )}
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent z-10 pointer-events-none" />
-                        
-                        <div className="relative z-20 mt-auto p-6 sm:p-8 lg:p-10 flex flex-col w-full text-right pointer-events-auto">
-                            <div className="flex items-center gap-3 mb-4">
-                              <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-black rounded-lg border backdrop-blur-md \${
-                                activeLocation.type === 'headquarter' ? 'text-amber-400 bg-amber-400/10 border-amber-400/20 shadow-[0_0_15px_rgba(251,191,36,0.15)]' :
-                                activeLocation.type === 'factory' ? 'text-blue-300 bg-[#003F86]/30 border-[#003F86]/50 shadow-[0_0_15px_rgba(0,63,134,0.3)]' :
-                                'text-emerald-400 bg-emerald-500/20 border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.15)]'
-                              }`}>
-                                 {activeLocation.type === 'headquarter' ? <Building2 className="w-3.5 h-3.5"/> : activeLocation.type === 'factory' ? <Factory className="w-3.5 h-3.5"/> : <MapPin className="w-3.5 h-3.5"/>}
-                                 {activeLocation.type === 'headquarter' ? 'دفتر مرکزی' : activeLocation.type === 'factory' ? 'سایت تولید' : 'شعبه / نمایندگی'}
-                              </span>
-                            </div>
-                            <h4 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-4 drop-shadow-lg leading-tight">
-                              {activeLocation.title || (activeLocation.type === 'headquarter' ? 'دفتر مرکزی' : 'شعبه')}
-                            </h4>
-                            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl mb-6 font-medium">
-                              {activeLocation.address}
-                            </p>
-                            {((activeLocation as any).workingHours || (activeLocation.type === 'headquarter' ? companyInfo.workingHours : null)) && (
-                              <div className="flex items-center gap-2.5 text-xs sm:text-sm text-amber-400 font-bold bg-amber-500/10 px-4 py-2.5 rounded-xl border border-amber-500/20 backdrop-blur-md shadow-lg self-start">
-                                <Clock className="w-4 h-4" />
-                                <span>{(activeLocation as any).workingHours || companyInfo.workingHours}</span>
+                             <div className="flex-1 overflow-hidden">
+                               <h5 className={`font-black truncate text-[13px] sm:text-sm mb-1 transition-colors ${isActive ? 'text-amber-400' : 'text-slate-300'}`}>
+                                 {loc.title || (isHQ ? 'دفتر مرکزی' : 'شعبه')}
+                               </h5>
+                               <p className="text-[11px] text-slate-500 truncate">{loc.address}</p>
+                             </div>
+                          </button>
+                        )
+                     })}
+                   </div>
+                </div>
+
+                {/* 2. Right Detail View: Active Card */}
+                <div className="lg:col-span-8 relative rounded-[2rem] overflow-hidden bg-[#002d61]/50 border border-white/10 h-[400px] lg:h-full group shadow-2xl">
+                   <AnimatePresence mode="wait">
+                      {activeLocation && (
+                         <motion.div
+                           key={activeLocationIndex}
+                           initial={{ opacity: 0, scale: 0.98, filter: 'blur(5px)' }}
+                           animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                           exit={{ opacity: 0, scale: 1.02, filter: 'blur(5px)' }}
+                           transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+                           className="absolute inset-0 flex flex-col w-full h-full"
+                         >
+                            {/* Elegant Graphic Background instead of Map */}
+                            <div className="absolute inset-0 z-0 bg-[#001c3d] overflow-hidden">
+                              {/* Background Patterns */}
+                              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(251,191,36,0.08)_0%,_transparent_70%)]" />
+                              <div className="absolute top-[20%] right-[20%] w-[50%] h-[50%] bg-blue-500/5 rounded-full blur-[100px]" />
+                              <div className="absolute bottom-[20%] left-[20%] w-[50%] h-[50%] bg-amber-500/5 rounded-full blur-[100px]" />
+                              
+                              {/* Central Abstract Logo / Icon Element */}
+                              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                 <div className="w-80 h-80 border border-white/5 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                    <div className="w-56 h-56 border border-white/10 rounded-full flex items-center justify-center animate-[spin_40s_linear_infinite_reverse]">
+                                       <div className="w-32 h-32 border border-amber-500/20 rounded-full flex items-center justify-center bg-white/5 backdrop-blur-xl shadow-[0_0_50px_rgba(251,191,36,0.1)]">
+                                          {activeLocation.type === 'headquarter' ? <Building2 className="w-12 h-12 text-amber-500/60" /> : 
+                                           activeLocation.type === 'factory' ? <Factory className="w-12 h-12 text-amber-500/60" /> : 
+                                           <MapPin className="w-12 h-12 text-amber-500/60" />}
+                                       </div>
+                                    </div>
+                                 </div>
                               </div>
-                            )}
-                        </div>
-                     </motion.div>
-                  )}
-               </AnimatePresence>
-            </div>
+                              
+                              {/* Soft Overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-[#001c3d] via-[#001c3d]/60 to-transparent z-10" />
+                            </div>
+                            
+                            {/* Massive Dark Gradient Overlay for Typography */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent z-10 pointer-events-none" />
+
+                            {/* Info Content Anchored Bottom */}
+                            <div className="relative z-20 mt-auto p-6 sm:p-10 lg:p-12 flex flex-col w-full text-right pointer-events-auto">
+                                <div className="flex items-center gap-3 mb-6">
+                                  {/* <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-black rounded-lg border  ${
+                                    activeLocation.type === 'headquarter' ? 'text-amber-400 bg-amber-400/10 border-amber-400/20 shadow-[0_0_15px_rgba(251,191,36,0.15)]' :
+                                    activeLocation.type === 'factory' ? 'text-blue-300 bg-[#003F86]/30 border-[#003F86]/50 shadow-[0_0_15px_rgba(0,63,134,0.3)]' :
+                                    'text-emerald-400 bg-emerald-500/20 border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.15)]'
+                                  }`}>
+                                     {activeLocation.type === 'headquarter' ? <Building2 className="w-3.5 h-3.5"/> : activeLocation.type === 'factory' ? <Factory className="w-3.5 h-3.5"/> : <MapPin className="w-3.5 h-3.5"/>}
+                                     {activeLocation.type === 'headquarter' ? 'دفتر مرکزی' : activeLocation.type === 'factory' ? 'سایت تولید' : 'شعبه / نمایندگی'}
+                                  </span> */}
+                                </div>
+
+                                <h4 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-5 drop-shadow-lg leading-tight">
+                                  {activeLocation.title || (activeLocation.type === 'headquarter' ? 'دفتر مرکزی' : 'شعبه')}
+                                </h4>
+
+                                <p className="text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl mb-8 font-medium">
+                                  {activeLocation.address}
+                                </p>
+
+                                <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-white/10">
+                                  {((activeLocation as any).workingHours || (activeLocation.type === 'headquarter' ? companyInfo.workingHours : null)) && (
+                                    <div className="flex items-center gap-2.5 text-sm sm:text-base text-amber-400 font-bold bg-amber-500/10 px-5 py-2.5 rounded-xl border border-amber-500/20  shadow-lg">
+                                      <Clock className="w-4.5 h-4.5" />
+                                      <span>{(activeLocation as any).workingHours || companyInfo.workingHours}</span>
+                                    </div>
+                                  )}
+                                </div>
+                            </div>
+                         </motion.div>
+                      )}
+                   </AnimatePresence>
+                </div>
+
+              </div>
           </div>
         </div>
 

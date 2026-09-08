@@ -109,7 +109,7 @@ export const MediaTab: React.FC = () => {
 
       {/* Add Modal */}
       {isAdding && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80  overflow-y-auto">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl">
             <div className="flex items-center justify-between p-5 border-b border-slate-800 bg-slate-900/50">
               <h3 className="text-base font-bold text-white flex items-center gap-2">

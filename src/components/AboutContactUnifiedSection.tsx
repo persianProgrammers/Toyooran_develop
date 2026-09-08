@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { AparatIcon } from "./AparatIcon";
 import { motion, AnimatePresence } from 'motion/react';
+import toast from 'react-hot-toast';
 import { 
   MapPin, 
   Phone, 
@@ -11,7 +13,10 @@ import {
   Linkedin,
   Building2,
   Factory,
-  Map
+  Map,
+  Youtube,
+  Tv,
+  Grid
 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 
@@ -20,8 +25,8 @@ export const AboutContactUnifiedSection: React.FC = () => {
   const [activeLocationIndex, setActiveLocationIndex] = useState(0);
   
   // Clean Data Extractions
-  const phones = companyInfo.phoneNumbers?.filter(p => p.trim() !== '') || [];
-  const mainPhone = phones[0] || '۰۲۱-۱۲۳۴۵۶۷۸';
+  const phones = [companyInfo.phone].filter(Boolean) || [];
+  const mainPhone = phones[0] || '۰۵۱-۳۶۶۶۵۶۰۰';
   const email = companyInfo.email || 'info@pooyapoultry.com';
   const locations = companyInfo.locations || [];
   
@@ -51,12 +56,12 @@ export const AboutContactUnifiedSection: React.FC = () => {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Massive Dark Cinematic Card */}
-        <div className="bg-slate-950 rounded-[2.5rem] sm:rounded-[3.5rem] p-6 sm:p-12 lg:p-16 relative overflow-hidden flex flex-col shadow-[0_30px_60px_rgba(0,0,0,0.1)]">
+        <div className="bg-[#001c3d] rounded-[2.5rem] sm:rounded-[3.5rem] p-6 sm:p-12 lg:p-16 relative overflow-hidden flex flex-col shadow-[0_30px_60px_rgba(0,0,0,0.1)]">
           
           {/* Ambient Background Magic */}
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#003F86]/20 rounded-full blur-[120px] translate-y-1/3 -translate-x-1/3 pointer-events-none" />
-          <div className="absolute inset-0 bg-[url('/images/cubes.png')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_rgba(245,158,11,0.08)_0%,_transparent_70%)] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_rgba(0,63,134,0.15)_0%,_transparent_70%)] translate-y-1/3 -translate-x-1/3 pointer-events-none" />
+          <div className="absolute inset-0 bg-[url('/images/cubes.png')] opacity-[0.03] pointer-events-none" />
 
           {/* TOP ROW: Manifesto & Core Contacts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 relative z-10">
@@ -83,23 +88,12 @@ export const AboutContactUnifiedSection: React.FC = () => {
             <div className="flex flex-col gap-6 justify-center lg:pl-10">
               {/* Phone */}
               <div className="group flex items-center gap-5 cursor-pointer">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-amber-400 group-hover:bg-amber-400 group-hover:text-slate-900 group-hover:scale-110 transition-all duration-500 shadow-lg backdrop-blur-md shrink-0">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-amber-400 group-hover:bg-amber-400 group-hover:text-slate-900 group-hover:scale-110 transition-all duration-500 shadow-lg  shrink-0">
                   <Phone className="w-6 h-6 sm:w-7 sm:h-7" />
                 </div>
                 <div>
                   <span className="block text-[11px] sm:text-xs text-slate-500 font-bold mb-1 uppercase tracking-wider">مشاوره و فروش</span>
-                  <span className="block text-xl sm:text-2xl text-white font-black group-hover:text-amber-400 transition-colors drop-shadow-md" dir="ltr" style={{ textAlign: 'right' }}>{mainPhone}</span>
-                </div>
-              </div>
-              
-              {/* Email */}
-              <div className="group flex items-center gap-5 cursor-pointer mt-2">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white group-hover:scale-110 transition-all duration-500 shadow-lg backdrop-blur-md shrink-0">
-                  <Mail className="w-6 h-6 sm:w-7 sm:h-7" />
-                </div>
-                <div>
-                  <span className="block text-[11px] sm:text-xs text-slate-500 font-bold mb-1 uppercase tracking-wider">پست الکترونیک</span>
-                  <span className="block text-lg sm:text-xl text-white font-black group-hover:text-blue-400 transition-colors drop-shadow-md">{email}</span>
+                  <a href={`tel:${mainPhone}`} className="block text-xl sm:text-2xl text-white font-black group-hover:text-amber-400 transition-colors drop-shadow-md" dir="ltr" style={{ textAlign: 'right' }}>{mainPhone}</a>
                 </div>
               </div>
               
@@ -108,26 +102,84 @@ export const AboutContactUnifiedSection: React.FC = () => {
                 <div className="mt-6 flex items-center gap-4">
                   <span className="text-xs font-bold text-slate-500 ml-2">شبکه‌های اجتماعی:</span>
                   
-                  {companyInfo.socialLinks?.instagram && (
-                    <a href={companyInfo.socialLinks.instagram} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-slate-400 flex items-center justify-center hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-pink-500 hover:to-purple-500 hover:text-white hover:border-transparent hover:scale-110 hover:-rotate-12 transition-all duration-300">
-                      <Instagram className="w-4 h-4" />
-                    </a>
-                  )}
-                  {companyInfo.socialLinks?.telegram && (
-                    <a href={companyInfo.socialLinks.telegram} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-slate-400 flex items-center justify-center hover:bg-[#0088cc] hover:text-white hover:border-transparent hover:scale-110 hover:rotate-12 transition-all duration-300">
-                      <Send className="w-4 h-4 ml-0.5" />
-                    </a>
-                  )}
-                  {companyInfo.socialLinks?.whatsapp && (
-                    <a href={companyInfo.socialLinks.whatsapp} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-slate-400 flex items-center justify-center hover:bg-[#25D366] hover:text-white hover:border-transparent hover:scale-110 hover:-rotate-12 transition-all duration-300">
-                      <MessageCircle className="w-4 h-4" />
-                    </a>
-                  )}
-                  {companyInfo.socialLinks?.linkedin && (
-                    <a href={companyInfo.socialLinks.linkedin} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-slate-400 flex items-center justify-center hover:bg-[#0a66c2] hover:text-white hover:border-transparent hover:scale-110 hover:rotate-12 transition-all duration-300">
-                      <Linkedin className="w-4 h-4" />
-                    </a>
-                  )}
+                  <a 
+                    href={companyInfo.socialLinks?.instagram || '#'} 
+                    onClick={(e) => {
+                      if (!companyInfo.socialLinks?.instagram) {
+                        e.preventDefault();
+                        toast('به زودی صفحه اینستاگرام ما راه‌اندازی می‌شود', { icon: '✨' });
+                      }
+                    }}
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-slate-400 flex items-center justify-center hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-pink-500 hover:to-purple-500 hover:text-white hover:border-transparent hover:scale-110 hover:-rotate-12 transition-all duration-300">
+                    <Instagram className="w-4 h-4" />
+                  </a>
+                  <a 
+                    href={companyInfo.socialLinks?.telegram || '#'} 
+                    onClick={(e) => {
+                      if (!companyInfo.socialLinks?.telegram) {
+                        e.preventDefault();
+                        toast('به زودی کانال تلگرام ما راه‌اندازی می‌شود', { icon: '✨' });
+                      }
+                    }}
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-slate-400 flex items-center justify-center hover:bg-[#0088cc] hover:text-white hover:border-transparent hover:scale-110 hover:rotate-12 transition-all duration-300">
+                    <Send className="w-4 h-4 ml-0.5" />
+                  </a>
+                  <a 
+                    href={companyInfo.socialLinks?.aparat || '#'} 
+                    onClick={(e) => {
+                      if (!companyInfo.socialLinks?.aparat) {
+                        e.preventDefault();
+                        toast('به زودی کانال آپارات ما راه‌اندازی می‌شود', { icon: '✨' });
+                      }
+                    }}
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-slate-400 flex items-center justify-center hover:bg-[#263238] hover:text-white hover:border-transparent hover:scale-110 hover:-rotate-12 transition-all duration-300">
+                    <AparatIcon className="w-4 h-4" />
+                  </a>
+                  <a 
+                    href={companyInfo.socialLinks?.rubika || '#'} 
+                    onClick={(e) => {
+                      if (!companyInfo.socialLinks?.rubika) {
+                        e.preventDefault();
+                        toast('به زودی کانال روبیکا ما راه‌اندازی می‌شود', { icon: '✨' });
+                      }
+                    }}
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-slate-400 flex items-center justify-center hover:bg-gradient-to-r hover:from-[#ff7300] hover:to-[#7600b5] hover:text-white hover:border-transparent hover:scale-110 hover:rotate-12 transition-all duration-300">
+                    <Grid className="w-4 h-4" />
+                  </a>
+                  <a 
+                    href={companyInfo.socialLinks?.youtube || '#'} 
+                    onClick={(e) => {
+                      if (!companyInfo.socialLinks?.youtube) {
+                        e.preventDefault();
+                        toast('به زودی کانال یوتیوب ما راه‌اندازی می‌شود', { icon: '✨' });
+                      }
+                    }}
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-slate-400 flex items-center justify-center hover:bg-[#ff0000] hover:text-white hover:border-transparent hover:scale-110 hover:-rotate-12 transition-all duration-300">
+                    <Youtube className="w-4 h-4" />
+                  </a>
+                  <a 
+                    href={companyInfo.socialLinks?.linkedin || '#'} 
+                    onClick={(e) => {
+                      if (!companyInfo.socialLinks?.linkedin) {
+                        e.preventDefault();
+                        toast('به زودی صفحه لینکدین ما راه‌اندازی می‌شود', { icon: '✨' });
+                      }
+                    }}
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-slate-400 flex items-center justify-center hover:bg-[#0a66c2] hover:text-white hover:border-transparent hover:scale-110 hover:rotate-12 transition-all duration-300">
+                    <Linkedin className="w-4 h-4" />
+                  </a>
                 </div>
               )}
             </div>
@@ -139,7 +191,7 @@ export const AboutContactUnifiedSection: React.FC = () => {
               
               <div className="flex items-center gap-6 mb-10 opacity-60">
                 <div className="h-px flex-1 bg-gradient-to-l from-white/20 to-transparent" />
-                <h3 className="text-white/80 font-bold text-lg tracking-widest uppercase">دایرکتوری مراکز و شعب</h3>
+                <h3 className="text-white/80 font-bold text-lg tracking-widest uppercase">آدرس مراکز و شعب</h3>
                 <div className="h-px flex-1 bg-gradient-to-r from-white/20 to-transparent" />
               </div>
 
@@ -147,7 +199,7 @@ export const AboutContactUnifiedSection: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-auto lg:h-[500px]">
                 
                 {/* 1. Left Sidebar: Scrollable List of Branches */}
-                <div className="lg:col-span-4 bg-white/5 border border-white/10 rounded-[2rem] p-4 flex flex-col backdrop-blur-xl h-[350px] lg:h-full relative overflow-hidden shadow-2xl">
+                <div className="lg:col-span-4 bg-white/5 border border-white/10 rounded-[2rem] p-4 flex flex-col  h-[350px] lg:h-full relative overflow-hidden shadow-2xl">
                    {/* Fade masks for elegant scrolling */}
                    <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-slate-950/80 to-transparent z-10 pointer-events-none rounded-t-[2rem]" />
                    <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-slate-950/90 to-transparent z-10 pointer-events-none rounded-b-[2rem]" />
@@ -187,7 +239,7 @@ export const AboutContactUnifiedSection: React.FC = () => {
                 </div>
 
                 {/* 2. Right Detail View: Active Card */}
-                <div className="lg:col-span-8 relative rounded-[2rem] overflow-hidden bg-slate-900/50 border border-white/10 h-[400px] lg:h-full group shadow-2xl">
+                <div className="lg:col-span-8 relative rounded-[2rem] overflow-hidden bg-[#002d61]/50 border border-white/10 h-[400px] lg:h-full group shadow-2xl">
                    <AnimatePresence mode="wait">
                       {activeLocation && (
                          <motion.div
@@ -198,38 +250,44 @@ export const AboutContactUnifiedSection: React.FC = () => {
                            transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
                            className="absolute inset-0 flex flex-col w-full h-full"
                          >
-                            {/* Map Background */}
-                            <div className="absolute inset-0 z-0 bg-slate-900">
-                              {activeLocation.mapEmbedUrl ? (
-                                 <iframe
-                                   src={activeLocation.mapEmbedUrl}
-                                   className="w-full h-full grayscale opacity-40 mix-blend-screen group-hover:opacity-70 group-hover:grayscale-[20%] transition-all duration-700 object-cover"
-                                   loading="lazy"
-                                 />
-                              ) : (
-                                 <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-                                    <div className="absolute inset-0 bg-[url('/images/cubes.png')] opacity-5" />
-                                    <div className="w-64 h-64 bg-amber-500/10 rounded-full blur-[80px]" />
-                                    <div className="w-[400px] h-[400px] absolute -bottom-32 -left-32 bg-blue-500/10 rounded-full blur-[100px]" />
-                                    <Map className="w-16 h-16 text-white/5 relative z-10" />
+                            {/* Elegant Graphic Background instead of Map */}
+                            <div className="absolute inset-0 z-0 bg-[#001c3d] overflow-hidden">
+                              {/* Background Patterns */}
+                              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(251,191,36,0.08)_0%,_transparent_70%)]" />
+                              <div className="absolute top-[20%] right-[20%] w-[50%] h-[50%] bg-blue-500/5 rounded-full blur-[100px]" />
+                              <div className="absolute bottom-[20%] left-[20%] w-[50%] h-[50%] bg-amber-500/5 rounded-full blur-[100px]" />
+                              
+                              {/* Central Abstract Logo / Icon Element */}
+                              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                 <div className="w-80 h-80 border border-white/5 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                    <div className="w-56 h-56 border border-white/10 rounded-full flex items-center justify-center animate-[spin_40s_linear_infinite_reverse]">
+                                       <div className="w-32 h-32 border border-amber-500/20 rounded-full flex items-center justify-center bg-white/5 backdrop-blur-xl shadow-[0_0_50px_rgba(251,191,36,0.1)]">
+                                          {activeLocation.type === 'headquarter' ? <Building2 className="w-12 h-12 text-amber-500/60" /> : 
+                                           activeLocation.type === 'factory' ? <Factory className="w-12 h-12 text-amber-500/60" /> : 
+                                           <MapPin className="w-12 h-12 text-amber-500/60" />}
+                                       </div>
+                                    </div>
                                  </div>
-                              )}
+                              </div>
+                              
+                              {/* Soft Overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-[#001c3d] via-[#001c3d]/60 to-transparent z-10" />
                             </div>
-
+                            
                             {/* Massive Dark Gradient Overlay for Typography */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent z-10 pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent z-10 pointer-events-none" />
 
                             {/* Info Content Anchored Bottom */}
                             <div className="relative z-20 mt-auto p-6 sm:p-10 lg:p-12 flex flex-col w-full text-right pointer-events-auto">
                                 <div className="flex items-center gap-3 mb-6">
-                                  <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-black rounded-lg border backdrop-blur-md ${
+                                  {/* <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-black rounded-lg border  ${
                                     activeLocation.type === 'headquarter' ? 'text-amber-400 bg-amber-400/10 border-amber-400/20 shadow-[0_0_15px_rgba(251,191,36,0.15)]' :
                                     activeLocation.type === 'factory' ? 'text-blue-300 bg-[#003F86]/30 border-[#003F86]/50 shadow-[0_0_15px_rgba(0,63,134,0.3)]' :
                                     'text-emerald-400 bg-emerald-500/20 border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.15)]'
                                   }`}>
                                      {activeLocation.type === 'headquarter' ? <Building2 className="w-3.5 h-3.5"/> : activeLocation.type === 'factory' ? <Factory className="w-3.5 h-3.5"/> : <MapPin className="w-3.5 h-3.5"/>}
                                      {activeLocation.type === 'headquarter' ? 'دفتر مرکزی' : activeLocation.type === 'factory' ? 'سایت تولید' : 'شعبه / نمایندگی'}
-                                  </span>
+                                  </span> */}
                                 </div>
 
                                 <h4 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-5 drop-shadow-lg leading-tight">
@@ -242,7 +300,7 @@ export const AboutContactUnifiedSection: React.FC = () => {
 
                                 <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-white/10">
                                   {((activeLocation as any).workingHours || (activeLocation.type === 'headquarter' ? companyInfo.workingHours : null)) && (
-                                    <div className="flex items-center gap-2.5 text-sm sm:text-base text-amber-400 font-bold bg-amber-500/10 px-5 py-2.5 rounded-xl border border-amber-500/20 backdrop-blur-md shadow-lg">
+                                    <div className="flex items-center gap-2.5 text-sm sm:text-base text-amber-400 font-bold bg-amber-500/10 px-5 py-2.5 rounded-xl border border-amber-500/20  shadow-lg">
                                       <Clock className="w-4.5 h-4.5" />
                                       <span>{(activeLocation as any).workingHours || companyInfo.workingHours}</span>
                                     </div>

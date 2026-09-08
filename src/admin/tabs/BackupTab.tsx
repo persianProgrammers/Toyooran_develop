@@ -182,7 +182,7 @@ export const BackupTab: React.FC = () => {
 
       {/* Confirmation Modal */}
       {resetConfirmModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-slate-950/80  flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl">
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
               <AlertCircle className="w-5 h-5 text-rose-400" />

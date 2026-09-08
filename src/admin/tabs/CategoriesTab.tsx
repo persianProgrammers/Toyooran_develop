@@ -155,7 +155,7 @@ export const CategoriesTab: React.FC = () => {
 
       {/* Delete Modal */}
       {deleteConfirmId && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-slate-950/80  flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-sm w-full space-y-4 shadow-2xl">
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
               <AlertCircle className="w-5 h-5 text-rose-400" />
@@ -184,7 +184,7 @@ export const CategoriesTab: React.FC = () => {
 
       {/* Create / Edit Modal */}
       {(isCreating || editingCat) && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-slate-950/80  flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-4">
             
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">
